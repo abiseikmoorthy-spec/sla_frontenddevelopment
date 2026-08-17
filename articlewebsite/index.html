@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> | Web Developer</title>
+<link rel="stylesheet" href="assets/css/stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#cac9c9;color:#1724dd}
+header{display:flex;justify-content:space-between;padding:20px 40px;background:#111;position:sticky;top:0;z-index:10}
+.logo{font-weight:800;font-size:24px}
+nav a{margin-left:18px;color:#aaa;text-decoration:none}
+nav a:hover{color:#ffffff}
+.hero{display:flex;flex-wrap:wrap;padding:80px 40px;gap:40px;max-width:1200px;margin:0 auto}
+.hero-left{flex:1;min-width:300px}
+.badge{background:#1a1a1a;border:1px solid #333;padding:6px 14px;border-radius:20px;font-size:12px}
+.hero h1{font-size:52px;margin:20px 0;line-height:1.1}
+.hero h1 span{color:#8b5cf6}
+.hero p{color:#888;max-width:500px;margin-bottom:24px}
+.btn{padding:12px 26px;border-radius:30px;text-decoration:none;font-weight:600;display:inline-block;margin-right:10px}
+.black{background:#fff;color:#000}
+.white{border:1px solid #333;color:#fff}
+.socials{margin-top:24px;display:flex;gap:15px}
+.socials a{color:#666;text-decoration:none;font-size:14px}
+.code-card{background:#161616;border:1px solid #222;border-radius:16px;padding:20px;flex:1;min-width:300px}
+.dots{display:flex;gap:6px;margin-bottom:14px}
+.dots span{width:10px;height:10px;border-radius:50%;background:#333;display:block}
+pre{color:#a5b4fc;font-size:13px;overflow:auto}
+.c{color:#666}
+.section{padding:70px 40px;max-width:1100px;margin:0 auto}
+.section h2{font-size:32px;margin-bottom:20px}
+.skills-grid{display:flex;flex-wrap:wrap;gap:10px}
+.skill{background:#1a1a1a;border:1px solid #222;padding:10px 18px;border-radius:20px}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.project{background:#161616;border:1px solid #222;border-radius:16px;padding:20px}
+.p-img{height:150px;border-radius:12px;margin-bottom:12px}
+.g1{background:linear-gradient(135deg,#8b5cf6,#3b82f6)}
+.g2{background:linear-gradient(135deg,#f59e0b,#ef4444)}
+.g3{background:linear-gradient(135deg,#10b981,#06b6d4)}
+footer{text-align:center;padding:30px;color:#555;border-top:1px solid #222;margin-top:40px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">this is my websites</div>
+<nav><a href="#home">Home</a><a href="#projects">Projects</a><a href="#contact">Contact</a></nav>
+</header>
+<section class="hero" id="home">
+<div class="hero-left">
+<div class="badge">Available for freelance work</div>
+<h1>Hi, I'm <span>P Abiseik</span><br>I create modern websites with code.</h1>
+<p>21-year-old web developer from Chennai. I build clean, fast and modern portfolio & business websites.</p>
+<a href="#projects" class="btn black">View Projects </a>
+<a href="#contact" class="btn white">Let's Talk</a>
+<div class="socials">
+<a href="https://instagram.com/swg_star_">@swg_star_</a>
+<a href="https://instagram.com/skp_abiseik_pvt">@skp_abiseik_pvt</a>
+</div>
+</div>
+<div class="code-card">
+<div class="dots"><span></span><span></span><span></span></div>
+</code></pre>
+</div>
+</section>
+<section class="section" id="projects">
+<h2>My Projects</h2>
+<div class="projects-grid">
+<div class="project"><div class="p-img g1"></div><h3>Portfolio Website</h3><p>Dark modern portfolio with React</p></div>
+<div class="project"><div class="p-img g2"></div><h3>Business Landing Page</h3><p>Fast landing page with WhatsApp contact</p></div>
+<div class="project"><div class="p-img g3"></div><h3>E-commerce UI</h3><p>Shop design with cart</p></div>
+</div>
+</section>
+<section class="section" id="contact">
+<h2>Contact Me</h2>
+<p>Mobile No:6382006576 | Instagram:@swg_star_ | Email:abiseikmoorthy@gmail.com</p>
+</section>
+<footer>2026 P Abiseik - Built with code in Chennai</footer>
+</body>
+</html>
