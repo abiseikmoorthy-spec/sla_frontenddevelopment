@@ -3,46 +3,2118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student dashboard</title>
-    <link rel="stylesheet" href="assets/style1.css">
+    <title>Frontend & Fullstack Development Task Portal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --secondary: #7c3aed;
+            --dark: #0f172a;
+            --dark-card: #1e293b;
+            --gray-bg: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.08);
+            --shadow-xl: 0 20px 30px -10px rgba(0,0,0,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: var(--gray-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #0f172a;
+            color: white;
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .brand-icon {
+            font-size: 26px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            padding: 6px 10px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-sub {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .nav-stats {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stat-pill span {
+            color: #60a5fa;
+            font-weight: 700;
+        }
+
+        .stat-pill.pill-pending span {
+            color: #fbbf24;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #7c3aed 100%);
+            color: white;
+            padding: 55px 20px 45px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 38px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            max-width: 840px;
+            margin: auto;
+            color: #e0e7ff;
+            line-height: 1.6;
+        }
+
+        /* SEARCH BAR */
+        .search-container {
+            max-width: 680px;
+            margin: 30px auto 0 auto;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 16px 20px 16px 50px;
+            font-size: 15px;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            outline: none;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.2s;
+            background: white;
+            color: var(--text-main);
+        }
+
+        .search-box:focus {
+            border-color: #93c5fd;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #94a3b8;
+            pointer-events: none;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #94a3b8;
+            cursor: pointer;
+            display: none;
+        }
+
+        /* MAIN CONTAINER */
+        .container {
+            width: 92%;
+            max-width: 1240px;
+            margin: auto;
+            padding-bottom: 60px;
+            flex: 1;
+        }
+
+        .section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* BREADCRUMB */
+        .breadcrumb-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0 25px 0;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .breadcrumbs {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .breadcrumbs a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumbs span.separator {
+            color: #cbd5e1;
+        }
+
+        .breadcrumbs span.current {
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        /* FILTER CHIPS */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-hover);
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #d97706;
+        }
+
+        .btn-sm {
+            padding: 7px 12px;
+            font-size: 13px;
+        }
+
+        /* COURSE CARDS - 3x2 GRID */
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .course-card {
+            background: white;
+            padding: 28px 22px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .course-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-xl);
+            border-color: #93c5fd;
+        }
+
+        .course-card.html { border-top: 5px solid #ea580c; }
+        .course-card.css { border-top: 5px solid #0284c7; }
+        .course-card.bootstrap { border-top: 5px solid #7c3aed; }
+        .course-card.js { border-top: 5px solid #eab308; }
+        .course-card.react { border-top: 5px solid #06b6d4; }
+        .course-card.sql { border-top: 5px solid #10b981; }
+
+        .course-icon-badge {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 14px auto;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .html .course-icon-badge { background: #ffedd5; }
+        .css .course-icon-badge { background: #e0f2fe; }
+        .bootstrap .course-icon-badge { background: #f3e8ff; }
+        .js .course-icon-badge { background: #fef9c3; }
+        .react .course-icon-badge { background: #cffafe; }
+        .sql .course-icon-badge { background: #d1fae5; }
+
+        .course-card h3 {
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .course-card p.course-desc {
+            color: var(--text-muted);
+            font-size: 13px;
+            min-height: 38px;
+            line-height: 1.4;
+        }
+
+        .course-stats {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            margin: 14px 0 18px 0;
+            padding: 10px 8px;
+            background: #f8fafc;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            border: 1px solid #f1f5f9;
+        }
+
+        .course-stat-val {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 15px;
+            display: block;
+        }
+
+        .course-stat-lbl {
+            color: var(--text-muted);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* DAYS GRID */
+        #courseArea, #taskArea, #searchResultsArea {
+            display: none;
+        }
+
+        .day-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background: white;
+            padding: 22px 18px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .day-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: #93c5fd;
+        }
+
+        .day-card.day-pending {
+            border: 1px dashed #cbd5e1;
+            background: #fafbfc;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .day-badge {
+            font-size: 12px;
+            font-weight: 700;
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .day-badge.badge-pending {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .day-card h3 {
+            font-size: 18px;
+            color: var(--dark);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .day-task-count {
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .day-task-count.count-pending {
+            color: #d97706;
+        }
+
+        .day-preview-list {
+            list-style: none;
+            margin-bottom: 18px;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-top: 1px dashed var(--border-color);
+            padding-top: 10px;
+            min-height: 48px;
+        }
+
+        .day-preview-list li {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+
+        .day-preview-list li::before {
+            content: "• ";
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* TASK GRID */
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 22px;
+        }
+
+        .task-card {
+            background: white;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .task-card.completed {
+            border-left-color: var(--success);
+            background: #fcfdfc;
+        }
+
+        .task-card.task-empty {
+            border: 1px dashed #cbd5e1;
+            border-left: 5px solid var(--warning);
+            background: #fffdfa;
+        }
+
+        .task-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            gap: 8px;
+        }
+
+        .task-number-tag {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .task-card.completed .task-number-tag {
+            color: var(--success);
+        }
+
+        .task-card.task-empty .task-number-tag {
+            color: #d97706;
+        }
+
+        .task-status-pill {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .status-ready {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-empty {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .task-card h3 {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .task-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 14px;
+            border-top: 1px solid #f1f5f9;
+            flex-wrap: wrap;
+        }
+
+        .mark-btn {
+            background: none;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            cursor: pointer;
+            padding: 7px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.2s;
+            margin-left: auto;
+        }
+
+        .mark-btn.checked {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #059669;
+        }
+
+        /* SEARCH RESULTS */
+        .search-results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* MODAL PREVIEW */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            width: 100%;
+            max-width: 1100px;
+            height: 90vh;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: max-width 0.3s ease;
+        }
+
+        .modal-box.tablet-view { max-width: 768px; }
+        .modal-box.mobile-view { max-width: 390px; }
+
+        @keyframes modalPop {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: #0f172a;
+            color: white;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-title-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .modal-badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .modal-badge.badge-warning {
+            background: #f59e0b;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-path {
+            font-size: 12px;
+            color: #94a3b8;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .modal-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #cbd5e1;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active, .view-btn:hover {
+            background: rgba(255,255,255,0.25);
+            color: white;
+        }
+
+        .modal-close-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: #dc2626;
+        }
+
+        .modal-body {
+            flex: 1;
+            background: #f8fafc;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+            flex: 1;
+        }
+
+        /* CONSOLE LOG OVERLAY */
+        .console-drawer {
+            background: #090d16;
+            color: #cbd5e1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            border-top: 1px solid #1e293b;
+            max-height: 160px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 14px;
+            background: #111827;
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .console-logs {
+            padding: 8px 14px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .log-entry { line-height: 1.4; }
+        .log-entry.info { color: #60a5fa; }
+        .log-entry.warn { color: #f59e0b; }
+        .log-entry.error { color: #f87171; }
+        .log-entry.log { color: #a7f3d0; }
+
+        /* FOOTER */
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+            margin-top: auto;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        footer p {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        footer .tech-stack {
+            color: #cbd5e1;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0f172a;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 3000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 1100px) {
+            .course-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 14px 4%;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            .task-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-controls .view-btn {
+                display: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    
 
-    <header class="header">
-        <h1 id="title">Student Dashboard</h1>
-
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Profile</a>
-            <a href="#">Courses</a>
-            <a href="#">Marks</a>
-        </nav>
-    </header>
-
-    <div class="container">
-
-        <div class="card">
-            <h2>Name</h2>
-            <p>abiseik moorthy</p>
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="nav-brand" onclick="goHome()">
+        <div class="brand-icon">🚀</div>
+        <div>
+            <div class="brand-title">Frontend Task Portal</div>
+            <div class="brand-sub">Extended Learning Workspace</div>
         </div>
-
-        <div class="card">
-            <h2>Department</h2>
-            <p>Arts&Science</p>
-        </div>
-
-        <div class="card">
-            <h2>Year</h2>
-            <p>Final Year</p>
-        </div>
-
-        <div class="card">
-            <h2>CGPA</h2>
-            <p>6.5</p>
-        </div>
-
     </div>
+
+    <div class="nav-stats">
+        <div class="stat-pill">
+            <span>66</span> Done
+        </div>
+        <div class="stat-pill pill-pending">
+            <span>95</span> Days Total
+        </div>
+        <div class="stat-pill" id="completedCounterPill">
+            <span id="navCompletedCount">0</span> Completed
+        </div>
+    </div>
+
+    <div class="nav-links">
+        <a href="#courses" onclick="goHome()">Courses</a>
+        <a href="javascript:void(0)" onclick="focusSearch()">🔍 Search Tasks</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <h1>Frontend & Fullstack Task Workspace</h1>
+    <p>
+        Day-wise practical course portal extended with days ready for your work across 
+        <strong>HTML (20 Days)</strong>, <strong>CSS (20 Days)</strong>, <strong>Bootstrap (15 Days)</strong>, 
+        <strong>JavaScript (20 Days)</strong>, <strong>React (10 Days)</strong>, and <strong>SQL (10 Days)</strong>.
+    </p>
+
+    <!-- REAL-TIME SEARCH -->
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input 
+            type="text" 
+            class="search-box" 
+            id="searchInput" 
+            placeholder="Search across all days and tasks (e.g. login, card, form, logical, day 15, sql)..." 
+            oninput="handleSearch(this.value)"
+        >
+        <button class="clear-search" id="clearSearchBtn" onclick="clearSearch()">✕</button>
+    </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<main class="container">
+
+    <!-- SEARCH RESULTS SECTION -->
+    <section class="section" id="searchResultsArea">
+        <div class="breadcrumb-bar">
+            <div class="breadcrumbs">
+                <a onclick="goHome()">Home</a>
+                <span class="separator">/</span>
+                <span class="current">Search Results</span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="clearSearch()">
+                ← Back to Courses
+            </button>
+        </div>
+
+        <div class="search-results-header">
+            <h2 class="section-title" id="searchResultsCount">Search Results</h2>
+        </div>
+
+        <div class="task-grid" id="searchTaskGrid"></div>
+    </section>
+
+    <!-- COURSES SECTION -->
+    <section class="section" id="courses">
+        <div class="section-header">
+            <h2 class="section-title">Your Courses (Extended Days)</h2>
+            <p class="section-subtitle">Select any technology to browse all days from Day 1 up to extended days</p>
+        </div>
+
+        <div class="course-grid">
+            <!-- HTML -->
+            <div class="course-card html">
+                <div>
+                    <div class="course-icon-badge">🌐</div>
+                    <h3>HTML</h3>
+                    <p class="course-desc">Extended from Day 9 up to Day 20 with all practical task slots</p>
+                    <div class="course-stats">
+                        <div>
+                            <span class="course-stat-val">20</span>
+                            <span class="course-stat-lbl">Days Total</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#10b981;">18</span>
+                            <span class="course-stat-lbl">Tasks Done</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#d97706;">Day 10-20</span>
+                            <span class="course-stat-lbl">Extended</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" onclick="openCourse('HTML')">
+                    Open HTML (20 Days) →
+                </button>
+            </div>
+
+            <!-- CSS -->
+            <div class="course-card css">
+                <div>
+                    <div class="course-icon-badge">🎨</div>
+                    <h3>CSS</h3>
+                    <p class="course-desc">Extended up to Day 20 with styling, card & flexbox slots</p>
+                    <div class="course-stats">
+                        <div>
+                            <span class="course-stat-val">20</span>
+                            <span class="course-stat-lbl">Days Total</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#10b981;">26</span>
+                            <span class="course-stat-lbl">Tasks Done</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#d97706;">Day 11-20</span>
+                            <span class="course-stat-lbl">Extended</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" onclick="openCourse('CSS')">
+                    Open CSS (20 Days) →
+                </button>
+            </div>
+
+            <!-- BOOTSTRAP -->
+            <div class="course-card bootstrap">
+                <div>
+                    <div class="course-icon-badge">🅱️</div>
+                    <h3>Bootstrap & Tailwind</h3>
+                    <p class="course-desc">Extended up to Day 15 with component and responsive layout slots</p>
+                    <div class="course-stats">
+                        <div>
+                            <span class="course-stat-val">15</span>
+                            <span class="course-stat-lbl">Days Total</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#10b981;">10</span>
+                            <span class="course-stat-lbl">Tasks Done</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#d97706;">Day 5-15</span>
+                            <span class="course-stat-lbl">Extended</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" onclick="openCourse('Bootstrap')">
+                    Open Bootstrap (15 Days) →
+                </button>
+            </div>
+
+            <!-- JAVASCRIPT -->
+            <div class="course-card js">
+                <div>
+                    <div class="course-icon-badge">⚡</div>
+                    <h3>JavaScript</h3>
+                    <p class="course-desc">Extended up to Day 20 with logic, functions, DOM & async slots</p>
+                    <div class="course-stats">
+                        <div>
+                            <span class="course-stat-val">20</span>
+                            <span class="course-stat-lbl">Days Total</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#10b981;">12</span>
+                            <span class="course-stat-lbl">Tasks Done</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#d97706;">Day 11-20</span>
+                            <span class="course-stat-lbl">Extended</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" onclick="openCourse('JavaScript')">
+                    Open JavaScript (20 Days) →
+                </button>
+            </div>
+
+            <!-- REACT -->
+            <div class="course-card react">
+                <div>
+                    <div class="course-icon-badge">⚛️</div>
+                    <h3>React</h3>
+                    <p class="course-desc">Allocated 10 Days (Day 1 to Day 10) for React components, props & hooks</p>
+                    <div class="course-stats">
+                        <div>
+                            <span class="course-stat-val">10</span>
+                            <span class="course-stat-lbl">Days Total</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#d97706;">Day 1-10</span>
+                            <span class="course-stat-lbl">Allotted</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val">Empty Slots</span>
+                            <span class="course-stat-lbl">Status</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" onclick="openCourse('React')">
+                    Open React (10 Days) →
+                </button>
+            </div>
+
+            <!-- SQL -->
+            <div class="course-card sql">
+                <div>
+                    <div class="course-icon-badge">🗄️</div>
+                    <h3>SQL Database</h3>
+                    <p class="course-desc">Allocated 10 Days (Day 1 to Day 10) for queries, tables, joins & schemas</p>
+                    <div class="course-stats">
+                        <div>
+                            <span class="course-stat-val">10</span>
+                            <span class="course-stat-lbl">Days Total</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val" style="color:#d97706;">Day 1-10</span>
+                            <span class="course-stat-lbl">Allotted</span>
+                        </div>
+                        <div>
+                            <span class="course-stat-val">Empty Slots</span>
+                            <span class="course-stat-lbl">Status</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn" onclick="openCourse('SQL')">
+                    Open SQL (10 Days) →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- COURSE DAY AREA -->
+    <section class="section" id="courseArea">
+        <div class="breadcrumb-bar">
+            <div class="breadcrumbs">
+                <a onclick="goHome()">Home</a>
+                <span class="separator">/</span>
+                <span class="current" id="breadcrumbCourse">Course</span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="goHome()">
+                ← Back to Courses
+            </button>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title" id="courseTitle"></h2>
+            <p class="section-subtitle" id="courseSubtitle">Select a day to view its tasks</p>
+        </div>
+
+        <!-- DAY FILTERS -->
+        <div class="filter-bar">
+            <button class="filter-chip active" id="chipAll" onclick="filterDays('all')">All Days</button>
+            <button class="filter-chip" id="chipDone" onclick="filterDays('done')">🟢 Days with Done Tasks</button>
+            <button class="filter-chip" id="chipPending" onclick="filterDays('pending')">⏳ Extended / Empty Days</button>
+        </div>
+
+        <div class="day-grid" id="dayGrid"></div>
+    </section>
+
+    <!-- TASK AREA -->
+    <section class="section" id="taskArea">
+        <div class="breadcrumb-bar">
+            <div class="breadcrumbs">
+                <a onclick="goHome()">Home</a>
+                <span class="separator">/</span>
+                <a onclick="backToDays()" id="breadcrumbCourseLink">Course</a>
+                <span class="separator">/</span>
+                <span class="current" id="breadcrumbDay">Day</span>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="backToDays()">
+                ← Back to Days
+            </button>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title" id="dayTitle"></h2>
+            <p class="section-subtitle" id="daySubtitle">Your executed tasks and allotted slots</p>
+        </div>
+
+        <div class="task-grid" id="taskGrid"></div>
+    </section>
+
+</main>
+
+<!-- LIVE EXECUTION MODAL PREVIEW -->
+<div class="modal-overlay" id="previewModal" onclick="handleModalBackdropClick(event)">
+    <div class="modal-box" id="modalBox">
+        <div class="modal-header">
+            <div class="modal-title-info">
+                <span class="modal-badge" id="modalBadge">PREVIEW</span>
+                <div>
+                    <div class="modal-title" id="modalTitle">Task Preview</div>
+                    <div class="modal-path" id="modalPath">path/to/task.html</div>
+                </div>
+            </div>
+
+            <div class="modal-controls">
+                <!-- Device View Controls -->
+                <button class="view-btn active" id="btnViewDesktop" onclick="setDeviceView('desktop')" title="Desktop View">🖥️ 100%</button>
+                <button class="view-btn" id="btnViewTablet" onclick="setDeviceView('tablet')" title="Tablet View (768px)">📱 Tablet</button>
+                <button class="view-btn" id="btnViewMobile" onclick="setDeviceView('mobile')" title="Mobile View (390px)">📱 Mobile</button>
+                
+                <!-- Action Controls -->
+                <button class="view-btn" onclick="reloadPreview()" title="Reload Frame">↻ Reload</button>
+                <a class="btn btn-outline btn-sm" id="modalNewTabBtn" href="#" target="_blank" style="color:white; border-color:rgba(255,255,255,0.2); background:rgba(255,255,255,0.1);">
+                    ↗ New Tab
+                </a>
+                <button class="modal-close-btn" onclick="closePreviewModal()" title="Close (Esc)">✕</button>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <iframe id="previewIframe" class="preview-iframe" src=""></iframe>
+
+            <!-- CONSOLE OUTPUT LOGS -->
+            <div class="console-drawer" id="consoleDrawer">
+                <div class="console-header" onclick="toggleConsoleDrawer()">
+                    <span>🖥️ Console Output (<span id="logCount">0</span> logs)</span>
+                    <span id="consoleToggleArrow">▲ Minimize</span>
+                </div>
+                <div class="console-logs" id="consoleLogs">
+                    <div class="log-entry info">[System] Preview loaded. JavaScript console logs will appear here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+    <span id="toastIcon">✨</span>
+    <span id="toastMsg">Action completed</span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Frontend & Fullstack Course Workspace</p>
+    <p class="tech-stack">HTML5 (Day 1-20) • CSS3 (Day 1-20) • Bootstrap (Day 1-15) • JavaScript (Day 1-20) • React (Day 1-10) • SQL (Day 1-10)</p>
+</footer>
+
+
+<!-- SCRIPT: EXTENDED DATABASE & LOGIC -->
+<script>
+/**
+ * DYNAMIC DATABASE WITH FULL EXTENDED DAYS:
+ * - HTML: Day 1 to Day 20 (Days 1, 2, 3, 6, 7, 8, 9 done; others extended empty slots)
+ * - CSS: Day 1 to Day 20 (Days 1, 2, 3, 4, 5, 6, 10 done; others extended empty slots)
+ * - Bootstrap & Tailwind: Day 1 to Day 15 (Days 1, 2, 3, 4 done; others extended empty slots)
+ * - JavaScript: Day 1 to Day 20 (Days 3, 4, 5, 6, 7, 8, 9, 10 done; others extended empty slots)
+ * - React: Day 1 to Day 10 (Allotted empty slots)
+ * - SQL: Day 1 to Day 10 (Allotted empty slots)
+ */
+const courseConfigs = {
+    HTML: {
+        name: "HTML",
+        description: "HyperText Markup Language - Forms, Semantics & Structure",
+        icon: "🌐",
+        maxDays: 20,
+        folder: "HTML",
+        realTasks: {
+            "1": [
+                { name: "Head Tags & Meta Elements", file: "HTML/day1/head.html" },
+                { name: "Basic HTML Structure & Content", file: "HTML/day1/index.html" }
+            ],
+            "2": [
+                { name: "Idhayam Murali Movie Details Page", file: "HTML/day2/day7/index.html" }
+            ],
+            "3": [
+                { name: "Practice Task 2", file: "HTML/day3/task2.html" },
+                { name: "Practice Task 3", file: "HTML/day3/task3.html" },
+                { name: "Practice Task 4", file: "HTML/day3/task4.html" },
+                { name: "Practice Task 5", file: "HTML/day3/task5.html" }
+            ],
+            "6": [
+                { name: "Home Page Layout", file: "HTML/day6/home.html" }
+            ],
+            "7": [
+                { name: "Employee Details Page", file: "HTML/day7/employe.html" }
+            ],
+            "8": [
+                { name: "Application Form", file: "HTML/day8/Applicationfrom.html" },
+                { name: "Contact Form", file: "HTML/day8/Contactfrom.html" },
+                { name: "Registration Form", file: "HTML/day8/Registrationfrom.html" },
+                { name: "User Feedback Form", file: "HTML/day8/feedback.html" },
+                { name: "User Login Form", file: "HTML/day8/login.html" }
+            ],
+            "9": [
+                { name: "Employee Registration Form", file: "HTML/day9/Employee Registration.html" },
+                { name: "Hospital Registration Form", file: "HTML/day9/Hospitalform.html" },
+                { name: "College Admission Form", file: "HTML/day9/collageform.html" },
+                { name: "Product Catalogue Page", file: "HTML/day9/product.html" },
+                { name: "Student Details Form", file: "HTML/day9/student.html" }
+            ]
+        }
+    },
+    CSS: {
+        name: "CSS",
+        description: "Cascading Style Sheets - Styling, Flexbox, Cards & Responsiveness",
+        icon: "🎨",
+        maxDays: 20,
+        folder: "CSS",
+        realTasks: {
+            "1": [
+                { name: "CSS Challenge 1", file: "CSS/Day1/changlle.html" },
+                { name: "College Website Styled Page", file: "CSS/Day1/college.html" },
+                { name: "Company Form Styling", file: "CSS/Day1/companyform.html" },
+                { name: "Favorites Layout", file: "CSS/Day1/favorite.html" },
+                { name: "Profile Form Design", file: "CSS/Day1/profileform.html" },
+                { name: "Student Form Design", file: "CSS/Day1/studentform.html" }
+            ],
+            "2": [
+                { name: "News Article Layout", file: "CSS/Day2/article.html" },
+                { name: "CSS Challenge 2", file: "CSS/Day2/challenge.html" },
+                { name: "Employee Profile Card", file: "CSS/Day2/employecard.html" },
+                { name: "Mini Box Container Design", file: "CSS/Day2/minibox.html" },
+                { name: "E-Commerce Product Card", file: "CSS/Day2/productcard.html" },
+                { name: "Student ID Card Design", file: "CSS/Day2/studentcard.html" }
+            ],
+            "3": [
+                { name: "Chennai City Tourism Portal", file: "CSS/day3/chennai.html" },
+                { name: "Department Layout", file: "CSS/day3/department.html" },
+                { name: "Hospital Services Page", file: "CSS/day3/hospital.html" },
+                { name: "Day 3 Index Showcase", file: "CSS/day3/index.html" },
+                { name: "IT Company Web Page", file: "CSS/day3/it.html" },
+                { name: "Movies Listing Grid", file: "CSS/day3/movies.html" }
+            ],
+            "4": [
+                { name: "CSS Display Property (Inline/Block)", file: "CSS/day4/display.html" },
+                { name: "Practice Task 2", file: "CSS/day4/task2.html" }
+            ],
+            "5": [
+                { name: "Day 5 Showcase Index", file: "CSS/Day5/index.html" },
+                { name: "Practice Task 1", file: "CSS/Day5/task1.html" },
+                { name: "Practice Task 2", file: "CSS/Day5/task2.html" },
+                { name: "Practice Task 3", file: "CSS/Day5/task3.html" },
+                { name: "Practice Task 4", file: "CSS/Day5/task4.html" },
+                { name: "Practice Task 5", file: "CSS/Day5/task5.html" }
+            ],
+            "6": [
+                { name: "Styling Task 1", file: "CSS/day6/task1.html" },
+                { name: "Styling Task 2", file: "CSS/day6/task2.html" },
+                { name: "Styling Task 3", file: "CSS/day6/task3.html" },
+                { name: "Styling Task 4", file: "CSS/day6/task4.html" },
+                { name: "Styling Task 5", file: "CSS/day6/task5.html" }
+            ],
+            "10": [
+                { name: "Responsive Design with Media Queries", file: "CSS/day10/mediaquery.html" }
+            ]
+        }
+    },
+    Bootstrap: {
+        name: "Bootstrap & Tailwind",
+        description: "Responsive Frameworks & Component Systems",
+        icon: "🅱️",
+        maxDays: 15,
+        folder: "Bootstrap&tailwin",
+        realTasks: {
+            "1": [
+                { name: "Bootstrap Introduction & Setup", file: "Bootstrap&tailwin/day1/bootstrap.html" }
+            ],
+            "2": [
+                { name: "Bootstrap Assignment 1", file: "Bootstrap&tailwin/day2/assignment1.html" },
+                { name: "Bootstrap Assignment 2", file: "Bootstrap&tailwin/day2/assignment2.html" },
+                { name: "Bootstrap Assignment 3", file: "Bootstrap&tailwin/day2/assignment3.html" }
+            ],
+            "3": [
+                { name: "Bootstrap Day 3 Project Index", file: "Bootstrap&tailwin/day3/index.html" }
+            ],
+            "4": [
+                { name: "Component Practice Task 1", file: "Bootstrap&tailwin/day4/task1.html" },
+                { name: "Component Practice Task 2", file: "Bootstrap&tailwin/day4/task2.html" },
+                { name: "Component Practice Task 3", file: "Bootstrap&tailwin/day4/task3.html" },
+                { name: "Component Practice Task 4", file: "Bootstrap&tailwin/day4/task4.html" },
+                { name: "Component Practice Task 5", file: "Bootstrap&tailwin/day4/task5.html" }
+            ]
+        }
+    },
+    JavaScript: {
+        name: "JavaScript",
+        description: "Interactive Programming, Operators, Functions & DOM",
+        icon: "⚡",
+        maxDays: 20,
+        folder: "javascript",
+        realTasks: {
+            "3": [
+                { name: "Operators Assignment", file: "javascript/day3/assignment.html" },
+                { name: "JavaScript Basics", file: "javascript/day3/basic.html" },
+                { name: "Comparison Operators (==, ===)", file: "javascript/day3/compraision.html" },
+                { name: "Increment & Decrement (++ / --)", file: "javascript/day3/inc&de.html" },
+                { name: "Logical Operators (AND, OR, NOT)", file: "javascript/day3/logical.html" }
+            ],
+            "4": [
+                { name: "If-Else & Conditional Statements", file: "javascript/day4/index.html" }
+            ],
+            "5": [
+                { name: "Functions, Arrow Functions & Loops", file: "javascript/day5/index.html" }
+            ],
+            "6": [
+                { name: "JavaScript Practice Workspace", file: "javascript/day6/index.html" }
+            ],
+            "7": [
+                { name: "Objects & Arrays Practice", file: "javascript/day7/index.html" }
+            ],
+            "8": [
+                { name: "DOM Selection & Event Listeners", file: "javascript/day8/index.html" }
+            ],
+            "9": [
+                { name: "Interactive Events & Form Validation", file: "javascript/day9/index.html" }
+            ],
+            "10": [
+                { name: "JavaScript Advanced Application", file: "javascript/day10/index.html" }
+            ]
+        }
+    },
+    React: {
+        name: "React",
+        description: "Components, Props, State, Virtual DOM & Modern Hooks",
+        icon: "⚛️",
+        maxDays: 10,
+        folder: "React",
+        realTasks: {}
+    },
+    SQL: {
+        name: "SQL Database",
+        description: "Relational Queries, Tables, Constraints, Joins & Aggregations",
+        icon: "🗄️",
+        maxDays: 10,
+        folder: "SQL",
+        realTasks: {}
+    }
+};
+
+/**
+ * Automatically construct the unified taskDatabase with full days
+ */
+const taskDatabase = {};
+
+Object.keys(courseConfigs).forEach(courseKey => {
+    const config = courseConfigs[courseKey];
+    taskDatabase[courseKey] = {
+        name: config.name,
+        description: config.description,
+        icon: config.icon,
+        folder: config.folder,
+        maxDays: config.maxDays,
+        days: {}
+    };
+
+    // Populate Day 1 to maxDays
+    for (let d = 1; d <= config.maxDays; d++) {
+        const dayStr = String(d);
+        if (config.realTasks && config.realTasks[dayStr]) {
+            // Real tasks exist for this day
+            taskDatabase[courseKey].days[dayStr] = config.realTasks[dayStr].map(t => ({
+                ...t,
+                isEmpty: false
+            }));
+        } else {
+            // Extended Empty day slot with 5 practical task slots
+            taskDatabase[courseKey].days[dayStr] = [
+                { name: `${config.name} Day ${d} - Task 1 (Empty Slot)`, file: `${config.folder}/day${d}/task1.html`, isEmpty: true },
+                { name: `${config.name} Day ${d} - Task 2 (Empty Slot)`, file: `${config.folder}/day${d}/task2.html`, isEmpty: true },
+                { name: `${config.name} Day ${d} - Task 3 (Empty Slot)`, file: `${config.folder}/day${d}/task3.html`, isEmpty: true },
+                { name: `${config.name} Day ${d} - Task 4 (Empty Slot)`, file: `${config.folder}/day${d}/task4.html`, isEmpty: true },
+                { name: `${config.name} Day ${d} - Task 5 (Empty Slot)`, file: `${config.folder}/day${d}/task5.html`, isEmpty: true }
+            ];
+        }
+    }
+});
+
+/* STATE MANAGEMENT */
+let currentCourseKey = "";
+let currentDayKey = "";
+let currentPreviewPath = "";
+let currentPreviewIsEmpty = false;
+let currentDayFilter = "all";
+let completedTasks = JSON.parse(localStorage.getItem('portal_completed_tasks') || '{}');
+
+/* INITIAL LOAD */
+document.addEventListener('DOMContentLoaded', () => {
+    updateCompletedStats();
+});
+
+/* UPDATE COMPLETED TASKS STATS */
+function updateCompletedStats() {
+    const count = Object.keys(completedTasks).length;
+    const countEl = document.getElementById('navCompletedCount');
+    if (countEl) countEl.innerText = count;
+}
+
+/* TOGGLE TASK COMPLETION */
+function toggleTaskDone(filePath, event) {
+    if (event) event.stopPropagation();
+    
+    if (completedTasks[filePath]) {
+        delete completedTasks[filePath];
+        showToast("Task marked as in progress ⏳");
+    } else {
+        completedTasks[filePath] = true;
+        showToast("Task marked as completed! 🎯");
+    }
+    
+    localStorage.setItem('portal_completed_tasks', JSON.stringify(completedTasks));
+    updateCompletedStats();
+    
+    // Refresh current view
+    if (currentDayKey && currentCourseKey) {
+        openDay(currentDayKey);
+    }
+    
+    // Refresh search if active
+    const searchVal = document.getElementById('searchInput').value;
+    if (searchVal.trim()) {
+        handleSearch(searchVal);
+    }
+}
+
+/* OPEN COURSE VIEW */
+function openCourse(courseKey) {
+    currentCourseKey = courseKey;
+    const course = taskDatabase[courseKey];
+    if (!course) return;
+
+    currentDayFilter = "all";
+    document.getElementById("chipAll").classList.add('active');
+    document.getElementById("chipDone").classList.remove('active');
+    document.getElementById("chipPending").classList.remove('active');
+
+    document.getElementById("courses").style.display = "none";
+    document.getElementById("searchResultsArea").style.display = "none";
+    document.getElementById("taskArea").style.display = "none";
+    document.getElementById("courseArea").style.display = "block";
+
+    document.getElementById("breadcrumbCourse").innerText = course.name;
+    document.getElementById("courseTitle").innerHTML = `${course.icon} ${course.name} Tasks (1 to ${course.maxDays} Days)`;
+    document.getElementById("courseSubtitle").innerText = `${course.description} • Extended up to Day ${course.maxDays}`;
+
+    renderDaysGrid();
+
+    window.scrollTo({
+        top: document.getElementById("courseArea").offsetTop - 40,
+        behavior: "smooth"
+    });
+}
+
+/* FILTER DAYS */
+function filterDays(filterType) {
+    currentDayFilter = filterType;
+    document.getElementById("chipAll").classList.toggle('active', filterType === 'all');
+    document.getElementById("chipDone").classList.toggle('active', filterType === 'done');
+    document.getElementById("chipPending").classList.toggle('active', filterType === 'pending');
+    renderDaysGrid();
+}
+
+/* RENDER DAYS GRID BASED ON FILTER */
+function renderDaysGrid() {
+    const course = taskDatabase[currentCourseKey];
+    if (!course) return;
+
+    const dayGrid = document.getElementById("dayGrid");
+    dayGrid.innerHTML = "";
+
+    const days = Object.keys(course.days).sort((a, b) => parseInt(a) - parseInt(b));
+
+    let visibleCount = 0;
+
+    days.forEach(day => {
+        const tasks = course.days[day];
+        const taskCount = tasks.length;
+        const allEmpty = tasks.every(t => t.isEmpty);
+        const doneInDay = tasks.filter(t => completedTasks[t.file]).length;
+
+        // Apply Filter
+        if (currentDayFilter === 'done' && allEmpty) return;
+        if (currentDayFilter === 'pending' && !allEmpty) return;
+
+        visibleCount++;
+
+        // Preview snippet of task names
+        const previewItems = tasks.slice(0, 3).map(t => `<li>${t.name}</li>`).join('');
+        const moreCount = taskCount > 3 ? `<li style="list-style:none; color:var(--primary); font-weight:600;">+${taskCount - 3} more...</li>` : '';
+
+        dayGrid.innerHTML += `
+            <div class="day-card ${allEmpty ? 'day-pending' : ''}" onclick="openDay('${day}')" style="cursor: pointer;">
+                <div>
+                    <div class="day-header">
+                        <span class="day-badge ${allEmpty ? 'badge-pending' : ''}">DAY ${day}</span>
+                        ${allEmpty ? '<span style="color:#d97706; font-size:12px; font-weight:700;">⏳ Extended Slot</span>' : 
+                          (doneInDay === taskCount ? '<span style="color:#10b981; font-size:12px; font-weight:700;">✓ Completed</span>' : `<span style="font-size:12px; color:#64748b;">${doneInDay}/${taskCount} done</span>`)}
+                    </div>
+                    <h3>Day ${day}</h3>
+                    <div class="day-task-count ${allEmpty ? 'count-pending' : ''}">${taskCount} Task${taskCount > 1 ? 's' : ''} ${allEmpty ? '(Ready to Fill)' : ''}</div>
+                    <ul class="day-preview-list">
+                        ${previewItems}
+                        ${moreCount}
+                    </ul>
+                </div>
+                <button class="btn btn-sm ${allEmpty ? 'btn-warning' : ''}" onclick="event.stopPropagation(); openDay('${day}')">
+                    ${allEmpty ? 'Open Day ' + day + ' (Empty) →' : 'Open Day ' + day + ' Tasks →'}
+                </button>
+            </div>
+        `;
+    });
+
+    if (visibleCount === 0) {
+        dayGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; background: white; border-radius: 12px; border: 1px solid var(--border-color);">
+                <p style="color: var(--text-muted);">No days match the selected filter.</p>
+            </div>
+        `;
+    }
+}
+
+/* OPEN DAY VIEW */
+function openDay(day) {
+    currentDayKey = day;
+    const course = taskDatabase[currentCourseKey];
+    if (!course || !course.days[day]) return;
+
+    const tasks = course.days[day];
+
+    document.getElementById("courseArea").style.display = "none";
+    document.getElementById("taskArea").style.display = "block";
+
+    document.getElementById("breadcrumbCourseLink").innerText = course.name;
+    document.getElementById("breadcrumbDay").innerText = `Day ${day}`;
+
+    document.getElementById("dayTitle").innerHTML = `${course.name} - Day ${day}`;
+    document.getElementById("daySubtitle").innerText = `${tasks.length} practical task slots for Day ${day} (Day ${day} of ${course.maxDays})`;
+
+    const taskGrid = document.getElementById("taskGrid");
+    taskGrid.innerHTML = "";
+
+    tasks.forEach((task, index) => {
+        const isDone = !!completedTasks[task.file];
+        const isEmpty = !!task.isEmpty;
+        let cardClass = 'task-card';
+        if (isDone) cardClass += ' completed';
+        if (isEmpty && !isDone) cardClass += ' task-empty';
+
+        const encodedUrl = encodeURI(task.file);
+
+        taskGrid.innerHTML += `
+            <div class="${cardClass}">
+                <div>
+                    <div class="task-top">
+                        <span class="task-number-tag">TASK ${index + 1}</span>
+                        <span class="task-status-pill ${isEmpty ? 'status-empty' : (isDone ? 'status-ready' : 'status-ready')}">
+                            ${isEmpty ? '⏳ Empty Slot (Pending)' : (isDone ? '✓ Completed' : 'Ready to Run')}
+                        </span>
+                    </div>
+
+                    <h3>${task.name}</h3>
+
+                    <div class="task-path" title="File Path">
+                        <span>📁 ${task.file}</span>
+                    </div>
+                </div>
+
+                <div class="task-actions">
+                    <button class="btn btn-sm ${isEmpty ? 'btn-warning' : ''}" onclick="runTask('${encodedUrl}', '${escapeHtml(task.name)}', '${currentCourseKey}', ${isEmpty})">
+                        ${isEmpty ? '📝 Preview Slot' : '▶ Run / Preview'}
+                    </button>
+
+                    <a class="btn btn-outline btn-sm" href="${encodedUrl}" target="_blank" rel="noopener noreferrer" title="Open file in browser tab">
+                        ↗ ${isEmpty ? 'Open File' : 'New Tab'}
+                    </a>
+
+                    <button class="mark-btn ${isDone ? 'checked' : ''}" onclick="toggleTaskDone('${task.file}', event)">
+                        ${isDone ? '✓ Done' : 'Done?'}
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    window.scrollTo({
+        top: document.getElementById("taskArea").offsetTop - 40,
+        behavior: "smooth"
+    });
+}
+
+/* RUN / PREVIEW TASK IN MODAL */
+function runTask(fileUrl, taskName, tech, isEmpty) {
+    currentPreviewPath = fileUrl;
+    currentPreviewIsEmpty = !!isEmpty;
+    const modal = document.getElementById('previewModal');
+    const iframe = document.getElementById('previewIframe');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalPath = document.getElementById('modalPath');
+    const modalBadge = document.getElementById('modalBadge');
+    const newTabBtn = document.getElementById('modalNewTabBtn');
+
+    modalTitle.innerText = taskName;
+    modalPath.innerText = decodeURI(fileUrl);
+    modalBadge.innerText = tech.toUpperCase() + (isEmpty ? ' (EMPTY SLOT)' : '');
+    modalBadge.className = 'modal-badge ' + (isEmpty ? 'badge-warning' : '');
+    newTabBtn.href = fileUrl;
+
+    // Reset Console
+    clearConsoleLogs();
+    addConsoleLog('info', `Loading: ${decodeURI(fileUrl)}`);
+
+    // Reset Device view to desktop
+    setDeviceView('desktop');
+
+    // Attempt to load the file
+    iframe.src = fileUrl;
+
+    iframe.onload = () => {
+        try {
+            const iframeWindow = iframe.contentWindow;
+            if (iframeWindow) {
+                // Hook into console logs
+                const origLog = iframeWindow.console.log;
+                const origWarn = iframeWindow.console.warn;
+                const origError = iframeWindow.console.error;
+
+                iframeWindow.console.log = function(...args) {
+                    if (origLog) origLog.apply(iframeWindow.console, args);
+                    addConsoleLog('log', args.map(formatLogArg).join(' '));
+                };
+                iframeWindow.console.warn = function(...args) {
+                    if (origWarn) origWarn.apply(iframeWindow.console, args);
+                    addConsoleLog('warn', args.map(formatLogArg).join(' '));
+                };
+                iframeWindow.console.error = function(...args) {
+                    if (origError) origError.apply(iframeWindow.console, args);
+                    addConsoleLog('error', args.map(formatLogArg).join(' '));
+                };
+            }
+        } catch (e) {
+            // Cross-origin restriction fallback
+        }
+    };
+
+    // If empty slot and file might not exist on disk, handle error gracefully
+    iframe.onerror = () => {
+        renderEmptySlotNotice(taskName, fileUrl, tech);
+    };
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function renderEmptySlotNotice(taskName, fileUrl, tech) {
+    const iframe = document.getElementById('previewIframe');
+    iframe.srcdoc = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    background: #0f172a;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 100vh;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                .card {
+                    background: #1e293b;
+                    border: 2px dashed #f59e0b;
+                    padding: 40px;
+                    border-radius: 16px;
+                    max-width: 540px;
+                    text-align: center;
+                }
+                h2 { color: #f59e0b; margin-top: 0; }
+                p { color: #94a3b8; line-height: 1.6; }
+                code { background: #0b0f19; color: #60a5fa; padding: 4px 8px; border-radius: 6px; font-family: monospace; }
+            </style>
+        </head>
+        <body>
+            <div class="card">
+                <div style="font-size: 48px; margin-bottom: 12px;">📝</div>
+                <h2>Empty Task Slot</h2>
+                <p><strong>${taskName}</strong></p>
+                <p>This slot is allotted and ready for your code.</p>
+                <p>Create or edit the file at:<br><code>${decodeURI(fileUrl)}</code></p>
+                <p style="font-size: 13px; color: #10b981;">When you save your code in that file, click <strong>↻ Reload</strong> above to see it run live!</p>
+            </div>
+        </body>
+        </html>
+    `;
+}
+
+/* CONSOLE DRAWER LOGIC */
+let consoleExpanded = true;
+function toggleConsoleDrawer() {
+    const logs = document.getElementById('consoleLogs');
+    const arrow = document.getElementById('consoleToggleArrow');
+    consoleExpanded = !consoleExpanded;
+    
+    if (consoleExpanded) {
+        logs.style.display = 'flex';
+        arrow.innerText = '▲ Minimize';
+    } else {
+        logs.style.display = 'none';
+        arrow.innerText = '▼ Expand';
+    }
+}
+
+function clearConsoleLogs() {
+    const logs = document.getElementById('consoleLogs');
+    logs.innerHTML = '';
+    document.getElementById('logCount').innerText = '0';
+}
+
+function addConsoleLog(type, text) {
+    const logs = document.getElementById('consoleLogs');
+    const count = document.getElementById('logCount');
+    const entry = document.createElement('div');
+    entry.className = `log-entry ${type}`;
+    entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+    logs.appendChild(entry);
+    logs.scrollTop = logs.scrollHeight;
+    count.innerText = logs.children.length;
+}
+
+function formatLogArg(arg) {
+    if (typeof arg === 'object') {
+        try { return JSON.stringify(arg); } catch(e) { return String(arg); }
+    }
+    return String(arg);
+}
+
+/* RELOAD PREVIEW IFRAME */
+function reloadPreview() {
+    const iframe = document.getElementById('previewIframe');
+    if (currentPreviewPath) {
+        clearConsoleLogs();
+        addConsoleLog('info', `Reloading task preview...`);
+        iframe.src = currentPreviewPath;
+        showToast("Preview reloaded ↻");
+    }
+}
+
+/* DEVICE VIEW SWITCHER */
+function setDeviceView(device) {
+    const box = document.getElementById('modalBox');
+    const btnD = document.getElementById('btnViewDesktop');
+    const btnT = document.getElementById('btnViewTablet');
+    const btnM = document.getElementById('btnViewMobile');
+
+    btnD.classList.remove('active');
+    btnT.classList.remove('active');
+    btnM.classList.remove('active');
+    box.classList.remove('tablet-view', 'mobile-view');
+
+    if (device === 'tablet') {
+        box.classList.add('tablet-view');
+        btnT.classList.add('active');
+    } else if (device === 'mobile') {
+        box.classList.add('mobile-view');
+        btnM.classList.add('active');
+    } else {
+        btnD.classList.add('active');
+    }
+}
+
+/* CLOSE PREVIEW MODAL */
+function closePreviewModal() {
+    const modal = document.getElementById('previewModal');
+    const iframe = document.getElementById('previewIframe');
+    iframe.src = '';
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function handleModalBackdropClick(event) {
+    if (event.target.id === 'previewModal') {
+        closePreviewModal();
+    }
+}
+
+// ESC KEY TO CLOSE MODAL
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closePreviewModal();
+    }
+});
+
+/* SEARCH ACROSS ALL DAYS & TASKS */
+function handleSearch(query) {
+    const q = query.toLowerCase().trim();
+    const searchArea = document.getElementById('searchResultsArea');
+    const clearBtn = document.getElementById('clearSearchBtn');
+    const resultsCount = document.getElementById('searchResultsCount');
+    const searchGrid = document.getElementById('searchTaskGrid');
+
+    if (!q) {
+        clearSearch();
+        return;
+    }
+
+    clearBtn.style.display = 'block';
+    document.getElementById('courses').style.display = 'none';
+    document.getElementById('courseArea').style.display = 'none';
+    document.getElementById('taskArea').style.display = 'none';
+    searchArea.style.display = 'block';
+
+    const matches = [];
+
+    // Search through all courses and days
+    Object.keys(taskDatabase).forEach(courseKey => {
+        const course = taskDatabase[courseKey];
+        Object.keys(course.days).forEach(day => {
+            course.days[day].forEach((task, idx) => {
+                if (task.name.toLowerCase().includes(q) || task.file.toLowerCase().includes(q) || courseKey.toLowerCase().includes(q) || `day ${day}`.includes(q)) {
+                    matches.push({
+                        ...task,
+                        courseKey,
+                        courseName: course.name,
+                        day,
+                        taskIndex: idx + 1
+                    });
+                }
+            });
+        });
+    });
+
+    // Sort: real done tasks first, then empty slots
+    matches.sort((a, b) => {
+        if (!a.isEmpty && b.isEmpty) return -1;
+        if (a.isEmpty && !b.isEmpty) return 1;
+        return 0;
+    });
+
+    resultsCount.innerText = `${matches.length} Task${matches.length === 1 ? '' : 's'} Found for "${query}"`;
+    searchGrid.innerHTML = '';
+
+    if (matches.length === 0) {
+        searchGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 40px; background: white; border-radius: 12px; border: 1px solid var(--border-color);">
+                <div style="font-size: 40px; margin-bottom: 10px;">🔍</div>
+                <h3 style="color: var(--dark); margin-bottom: 6px;">No Tasks Found</h3>
+                <p style="color: var(--text-muted); font-size: 14px;">Try searching with keywords like "card", "form", "logical", "react", "sql", or "day 15"</p>
+            </div>
+        `;
+        return;
+    }
+
+    matches.slice(0, 50).forEach(task => {
+        const isDone = !!completedTasks[task.file];
+        const isEmpty = !!task.isEmpty;
+        let cardClass = 'task-card';
+        if (isDone) cardClass += ' completed';
+        if (isEmpty && !isDone) cardClass += ' task-empty';
+        const encodedUrl = encodeURI(task.file);
+
+        searchGrid.innerHTML += `
+            <div class="${cardClass}">
+                <div>
+                    <div class="task-top">
+                        <span class="task-number-tag">${task.courseName} • Day ${task.day}</span>
+                        <span class="task-status-pill ${isEmpty ? 'status-empty' : (isDone ? 'status-ready' : 'status-ready')}">
+                            ${isEmpty ? '⏳ Empty Slot' : (isDone ? '✓ Completed' : 'Ready')}
+                        </span>
+                    </div>
+
+                    <h3>${task.name}</h3>
+
+                    <div class="task-path" title="File Path">
+                        <span>📁 ${task.file}</span>
+                    </div>
+                </div>
+
+                <div class="task-actions">
+                    <button class="btn btn-sm ${isEmpty ? 'btn-warning' : ''}" onclick="runTask('${encodedUrl}', '${escapeHtml(task.name)}', '${task.courseKey}', ${isEmpty})">
+                        ${isEmpty ? '📝 Preview Slot' : '▶ Run / Preview'}
+                    </button>
+
+                    <a class="btn btn-outline btn-sm" href="${encodedUrl}" target="_blank" rel="noopener noreferrer">
+                        ↗ Open File
+                    </a>
+
+                    <button class="mark-btn ${isDone ? 'checked' : ''}" onclick="toggleTaskDone('${task.file}', event)">
+                        ${isDone ? '✓ Done' : 'Done?'}
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function clearSearch() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('clearSearchBtn').style.display = 'none';
+    document.getElementById('searchResultsArea').style.display = 'none';
+
+    if (currentDayKey && currentCourseKey) {
+        document.getElementById('taskArea').style.display = 'block';
+    } else if (currentCourseKey) {
+        document.getElementById('courseArea').style.display = 'block';
+    } else {
+        document.getElementById('courses').style.display = 'block';
+    }
+}
+
+function focusSearch() {
+    const input = document.getElementById('searchInput');
+    input.focus();
+    window.scrollTo({
+        top: input.offsetTop - 100,
+        behavior: 'smooth'
+    });
+}
+
+/* NAVIGATION HELPERS */
+function backToDays() {
+    document.getElementById("taskArea").style.display = "none";
+    document.getElementById("courseArea").style.display = "block";
+    currentDayKey = "";
+}
+
+function goHome() {
+    document.getElementById("courseArea").style.display = "none";
+    document.getElementById("taskArea").style.display = "none";
+    document.getElementById("searchResultsArea").style.display = "none";
+    document.getElementById("courses").style.display = "block";
+    document.getElementById('searchInput').value = '';
+    document.getElementById('clearSearchBtn').style.display = 'none';
+    currentCourseKey = "";
+    currentDayKey = "";
+
+    window.scrollTo({
+        top: document.getElementById("courses").offsetTop - 30,
+        behavior: "smooth"
+    });
+}
+
+/* TOAST UTILITY */
+let toastTimer;
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').innerText = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2400);
+}
+
+function escapeHtml(str) {
+    return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+</script>
 
 </body>
 </html>
