@@ -1,0 +1,3299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Base Theme Variables */
+            --bg-body: #0b0f19;
+            --bg-card: rgba(18, 24, 38, 0.95);
+            --bg-card-hover: rgba(28, 38, 58, 0.95);
+            --bg-surface: #141b2d;
+            --bg-surface-elevated: #1e2942;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-color-hover: rgba(255, 255, 255, 0.18);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            /* Topic Accent Colors */
+            --topic-html: #ff5722;
+            --topic-html-gradient: linear-gradient(135deg, #ff5722 0%, #ff8a65 100%);
+            --topic-html-glow: rgba(255, 87, 34, 0.25);
+            --topic-html-bg: rgba(255, 87, 34, 0.08);
+            
+            --topic-css: #0288d1;
+            --topic-css-gradient: linear-gradient(135deg, #0288d1 0%, #29b6f6 100%);
+            --topic-css-glow: rgba(2, 136, 209, 0.25);
+            --topic-css-bg: rgba(2, 136, 209, 0.08);
+            
+            --topic-bootstrap: #7952b3;
+            --topic-bootstrap-gradient: linear-gradient(135deg, #7952b3 0%, #ab7fff 100%);
+            --topic-bootstrap-glow: rgba(121, 82, 179, 0.25);
+            --topic-bootstrap-bg: rgba(121, 82, 179, 0.08);
+            
+            --topic-js: #f59e0b;
+            --topic-js-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+            --topic-js-glow: rgba(245, 158, 11, 0.25);
+            --topic-js-bg: rgba(245, 158, 11, 0.08);
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --radius-full: 9999px;
+            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+            
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 87, 34, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(2, 136, 209, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 70% 30%, rgba(121, 82, 179, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 85%, rgba(245, 158, 11, 0.06) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Top Navigation & Header */
+        .header-container {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
+
+        .header-content {
+            max-width: 1560px;
+            margin: 0 auto;
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 800;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+        }
+
+        .brand-info h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-info p {
+            font-size: 0.825rem;
+            color: var(--text-secondary);
+        }
+
+        .student-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--bg-surface);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .student-avatar {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: #ffffff;
+        }
+
+        .student-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .student-dept {
+            color: var(--text-muted);
+            font-size: 0.775rem;
+        }
+
+        /* Stats & Filter Bar */
+        .controls-wrapper {
+            max-width: 1560px;
+            margin: 1.5rem auto 0 auto;
+            padding: 0 2rem;
+        }
+
+        .stats-bar {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .stat-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-text h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-text span {
+            font-size: 0.775rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .search-and-filters {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            min-width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1rem 0.6rem 2.4rem;
+            border-radius: var(--radius-full);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            pointer-events: none;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.9rem;
+            border-radius: var(--radius-full);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-chip:hover {
+            color: var(--text-primary);
+            border-color: var(--border-color-hover);
+        }
+
+        .filter-chip.active {
+            background: #6366f1;
+            color: #ffffff;
+            border-color: #6366f1;
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Main Dashboard Grid */
+        .dashboard-container {
+            max-width: 1560px;
+            margin: 2rem auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        /* Column Styles */
+        .topic-column {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .topic-column:hover {
+            border-color: var(--border-color-hover);
+        }
+
+        .column-header {
+            padding: 1.25rem 1.25rem 1rem 1.25rem;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topic-column.html .column-header {
+            background: linear-gradient(180deg, var(--topic-html-bg) 0%, transparent 100%);
+            border-top: 4px solid var(--topic-html);
+        }
+
+        .topic-column.css .column-header {
+            background: linear-gradient(180deg, var(--topic-css-bg) 0%, transparent 100%);
+            border-top: 4px solid var(--topic-css);
+        }
+
+        .topic-column.bootstrap .column-header {
+            background: linear-gradient(180deg, var(--topic-bootstrap-bg) 0%, transparent 100%);
+            border-top: 4px solid var(--topic-bootstrap);
+        }
+
+        .topic-column.javascript .column-header {
+            background: linear-gradient(180deg, var(--topic-js-bg) 0%, transparent 100%);
+            border-top: 4px solid var(--topic-js);
+        }
+
+        .column-title-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .topic-badge-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+
+        .html .topic-badge-icon { background: var(--topic-html-gradient); box-shadow: 0 4px 12px var(--topic-html-glow); }
+        .css .topic-badge-icon { background: var(--topic-css-gradient); box-shadow: 0 4px 12px var(--topic-css-glow); }
+        .bootstrap .topic-badge-icon { background: var(--topic-bootstrap-gradient); box-shadow: 0 4px 12px var(--topic-bootstrap-glow); }
+        .javascript .topic-badge-icon { background: var(--topic-js-gradient); box-shadow: 0 4px 12px var(--topic-js-glow); color: #1e1e1e; }
+
+        .column-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .column-count-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Days List inside column */
+        .days-list {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: calc(100vh - 230px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+        }
+
+        .days-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .days-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+        }
+
+        /* Day Item Card */
+        .day-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            position: relative;
+            user-select: none;
+            outline: none;
+        }
+
+        .day-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-color-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .day-card:active {
+            transform: translateY(0);
+        }
+
+        .topic-column.html .day-card:hover { border-color: rgba(255, 87, 34, 0.5); }
+        .topic-column.css .day-card:hover { border-color: rgba(2, 136, 209, 0.5); }
+        .topic-column.bootstrap .day-card:hover { border-color: rgba(121, 82, 179, 0.5); }
+        .topic-column.javascript .day-card:hover { border-color: rgba(245, 158, 11, 0.5); }
+
+        /* Selected Day Card Highlight */
+        .day-card.selected {
+            background: var(--bg-surface-elevated);
+        }
+
+        .topic-column.html .day-card.selected {
+            border-color: var(--topic-html);
+            box-shadow: 0 0 0 2px var(--topic-html-glow), 0 8px 20px rgba(255, 87, 34, 0.2);
+        }
+        .topic-column.css .day-card.selected {
+            border-color: var(--topic-css);
+            box-shadow: 0 0 0 2px var(--topic-css-glow), 0 8px 20px rgba(2, 136, 209, 0.2);
+        }
+        .topic-column.bootstrap .day-card.selected {
+            border-color: var(--topic-bootstrap);
+            box-shadow: 0 0 0 2px var(--topic-bootstrap-glow), 0 8px 20px rgba(121, 82, 179, 0.2);
+        }
+        .topic-column.javascript .day-card.selected {
+            border-color: var(--topic-js);
+            box-shadow: 0 0 0 2px var(--topic-js-glow), 0 8px 20px rgba(245, 158, 11, 0.2);
+        }
+
+        .day-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .day-pill {
+            font-size: 0.725rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+        }
+
+        .topic-column.html .day-pill { color: #ff8a65; background: rgba(255, 87, 34, 0.12); }
+        .topic-column.css .day-pill { color: #4fc3f7; background: rgba(2, 136, 209, 0.12); }
+        .topic-column.bootstrap .day-pill { color: #b388ff; background: rgba(121, 82, 179, 0.15); }
+        .topic-column.javascript .day-pill { color: #fcd34d; background: rgba(245, 158, 11, 0.12); }
+
+        .day-status-icon {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .day-title {
+            font-size: 0.925rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.35;
+        }
+
+        .day-snippet {
+            font-size: 0.775rem;
+            color: var(--text-muted);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .day-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.25rem;
+            font-size: 0.725rem;
+        }
+
+        .file-tag {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.675rem;
+            max-width: 140px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .view-action {
+            color: #6366f1;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        /* Modal / Dynamic Task Viewer */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 8, 16, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 1.5rem;
+        }
+
+        .modal-backdrop.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .task-modal {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 1100px;
+            height: 88vh;
+            max-height: 880px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.96) translateY(20px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .modal-backdrop.open .task-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Modal Header */
+        .modal-header {
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+        }
+
+        .modal-header-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .modal-topic-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .modal-day-badge {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .modal-title-wrapper {
+            margin-top: 0.35rem;
+        }
+
+        .modal-title-wrapper h2 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .modal-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-nav-day {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.45rem 0.85rem;
+            border-radius: var(--radius-md);
+            font-size: 0.825rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+
+        .btn-nav-day:hover:not(:disabled) {
+            background: var(--bg-surface-elevated);
+            color: var(--text-primary);
+            border-color: var(--border-color-hover);
+        }
+
+        .btn-nav-day:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .btn-close-modal {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-close-modal:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.4);
+            transform: rotate(90deg);
+        }
+
+        /* Modal Tabs */
+        .modal-tabs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 1.75rem;
+            background: rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 0.85rem 1.1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .modal-tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-tab-btn.active {
+            color: #ffffff;
+        }
+
+        .modal-tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #6366f1;
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Modal Body */
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .tab-pane {
+            display: none;
+            height: 100%;
+        }
+
+        .tab-pane.active {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* Tab 1: Overview */
+        .overview-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+        }
+
+        .overview-box h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .overview-text {
+            color: #cbd5e1;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .key-points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .key-point-card {
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+        }
+
+        .key-point-card h4 {
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .key-point-card p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Workspace Link Banner */
+        .workspace-link-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .workspace-file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .file-icon-box {
+            width: 40px;
+            height: 40px;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #a5b4fc;
+        }
+
+        .file-details h4 {
+            font-size: 0.95rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .file-details p {
+            font-size: 0.775rem;
+            color: #c7d2fe;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .btn-launch-file {
+            background: #6366f1;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-launch-file:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Tab 2: Code Viewer */
+        .code-container {
+            background: #0d1117;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 400px;
+        }
+
+        .code-toolbar {
+            background: #161b22;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-lang-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.775rem;
+            color: #58a6ff;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-copy-code {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.85rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: var(--transition);
+        }
+
+        .btn-copy-code:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+        }
+
+        .code-pre {
+            flex: 1;
+            margin: 0;
+            padding: 1.25rem;
+            overflow: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: #e6edf3;
+            background: #0d1117;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* Tab 3: Live Output Sandbox */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 450px;
+            background: #ffffff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-toolbar {
+            background: #1e293b;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .dot-control {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #eab308; }
+        .dot-green { background: #22c55e; }
+
+        .preview-url-bar {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-full);
+            padding: 0.2rem 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .btn-preview-action {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #e2e8f0;
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-preview-action:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .preview-iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 400px;
+            border: none;
+            background: #ffffff;
+            color: #1e293b;
+        }
+
+        /* Modal Footer */
+        .modal-footer {
+            padding: 1rem 1.75rem;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-status-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .footer-status-toggle input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: #10b981;
+        }
+
+        .footer-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Toast Notification */
+        .toast-msg {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #1e293b;
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid #334155;
+            box-shadow: var(--shadow-lg);
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+
+        .toast-msg.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .topics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem;
+            }
+            .controls-wrapper, .dashboard-container {
+                padding: 0 1rem;
+            }
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-and-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box {
+                min-width: 100%;
+            }
+            .modal-backdrop {
+                padding: 0.5rem;
+            }
+            .task-modal {
+                height: 96vh;
+                max-height: 96vh;
+            }
+            .modal-header {
+                padding: 1rem;
+            }
+            .modal-tabs {
+                padding: 0 1rem;
+                overflow-x: auto;
+            }
+            .modal-body {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="header-container">
+        <div class="header-content">
+            <div class="brand-section">
+                <div class="brand-logo">🚀</div>
+                <div class="brand-info">
+                    <h1>My Learning Dashboard</h1>
+                    <p>Interactive Full-Stack Web Development Roadmap (Day 1 – Day 12)</p>
+                </div>
+            </div>
+
+            <div class="student-pill">
+                <div class="student-avatar">AM</div>
+                <div>
+                    <div class="student-name">Abiseik Moorthy</div>
+                    <div class="student-dept">Arts & Science • Final Year</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Top Stats & Filter Bar -->
+    <div class="controls-wrapper">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-icon">📚</div>
+                <div class="stat-text">
+                    <h4 id="stat-total-tasks">48 Tasks</h4>
+                    <span>4 Core Topics (12 Days Each)</span>
+                </div>
+            </div>
+
+            <div class="stat-item">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-text">
+                    <h4 id="stat-completed-count">0 / 48 Completed</h4>
+                    <span>Track Your Daily Progress</span>
+                </div>
+            </div>
+
+            <div class="search-and-filters">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="taskSearchInput" placeholder="Search tasks, topics, days..." oninput="handleSearch(this.value)">
+                </div>
+
+                <div class="filter-chips">
+                    <button class="filter-chip active" onclick="filterTopic('all', this)">All (48)</button>
+                    <button class="filter-chip" onclick="filterTopic('html', this)">HTML (12)</button>
+                    <button class="filter-chip" onclick="filterTopic('css', this)">CSS (12)</button>
+                    <button class="filter-chip" onclick="filterTopic('bootstrap', this)">Bootstrap (12)</button>
+                    <button class="filter-chip" onclick="filterTopic('javascript', this)">JavaScript (12)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main 4-Column Dashboard -->
+    <main class="dashboard-container">
+        <div class="topics-grid" id="topicsGrid">
+            
+            <!-- Column 1: HTML -->
+            <section class="topic-column html" id="col-html">
+                <div class="column-header">
+                    <div class="column-title-group">
+                        <div class="topic-badge-icon">&lt;/&gt;</div>
+                        <div>
+                            <h2 class="column-title">HTML</h2>
+                        </div>
+                    </div>
+                    <span class="column-count-badge">12 Days</span>
+                </div>
+                <div class="days-list" id="list-html">
+                    <!-- Injected dynamically -->
+                </div>
+            </section>
+
+            <!-- Column 2: CSS -->
+            <section class="topic-column css" id="col-css">
+                <div class="column-header">
+                    <div class="column-title-group">
+                        <div class="topic-badge-icon">#</div>
+                        <div>
+                            <h2 class="column-title">CSS</h2>
+                        </div>
+                    </div>
+                    <span class="column-count-badge">12 Days</span>
+                </div>
+                <div class="days-list" id="list-css">
+                    <!-- Injected dynamically -->
+                </div>
+            </section>
+
+            <!-- Column 3: Bootstrap -->
+            <section class="topic-column bootstrap" id="col-bootstrap">
+                <div class="column-header">
+                    <div class="column-title-group">
+                        <div class="topic-badge-icon">B</div>
+                        <div>
+                            <h2 class="column-title">Bootstrap</h2>
+                        </div>
+                    </div>
+                    <span class="column-count-badge">12 Days</span>
+                </div>
+                <div class="days-list" id="list-bootstrap">
+                    <!-- Injected dynamically -->
+                </div>
+            </section>
+
+            <!-- Column 4: JavaScript -->
+            <section class="topic-column javascript" id="col-javascript">
+                <div class="column-header">
+                    <div class="column-title-group">
+                        <div class="topic-badge-icon">JS</div>
+                        <div>
+                            <h2 class="column-title">JavaScript</h2>
+                        </div>
+                    </div>
+                    <span class="column-count-badge">12 Days</span>
+                </div>
+                <div class="days-list" id="list-javascript">
+                    <!-- Injected dynamically -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Interactive Task Detail Modal -->
+    <div class="modal-backdrop" id="taskModalBackdrop" onclick="handleBackdropClick(event)">
+        <div class="task-modal" id="taskModalWindow" role="dialog" aria-modal="true">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div>
+                    <div class="modal-header-meta">
+                        <span class="modal-topic-badge" id="modalTopicBadge">HTML</span>
+                        <span class="modal-day-badge" id="modalDayBadge">Day 01</span>
+                    </div>
+                    <div class="modal-title-wrapper">
+                        <h2 id="modalTaskTitle">Task Title Here</h2>
+                    </div>
+                </div>
+
+                <div class="modal-header-actions">
+                    <button class="btn-nav-day" id="btnPrevDay" onclick="navigateDay(-1)">← Prev</button>
+                    <button class="btn-nav-day" id="btnNextDay" onclick="navigateDay(1)">Next →</button>
+                    <button class="btn-close-modal" onclick="closeTaskModal()" title="Close (Esc)">✕</button>
+                </div>
+            </div>
+
+            <!-- Modal Tabs -->
+            <div class="modal-tabs">
+                <button class="modal-tab-btn active" id="tabBtnPreview" onclick="switchModalTab('preview')">
+                    <span>🖥️ Live Preview & Output</span>
+                </button>
+                <button class="modal-tab-btn" id="tabBtnCode" onclick="switchModalTab('code')">
+                    <span>📜 Code & Syntax</span>
+                </button>
+                <button class="modal-tab-btn" id="tabBtnOverview" onclick="switchModalTab('overview')">
+                    <span>📖 Overview & Concepts</span>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="modal-body">
+                
+                <!-- Tab Pane 1: Live Preview -->
+                <div class="tab-pane active" id="panePreview">
+                    <div class="preview-container">
+                        <div class="preview-toolbar">
+                            <div class="preview-controls">
+                                <span class="dot-control dot-red"></span>
+                                <span class="dot-control dot-yellow"></span>
+                                <span class="dot-control dot-green"></span>
+                            </div>
+                            <div class="preview-url-bar" id="previewUrlBar">sandbox://preview/day-task</div>
+                            <div>
+                                <button class="btn-preview-action" onclick="reloadPreviewIframe()">↻ Rerun</button>
+                            </div>
+                        </div>
+                        <iframe id="previewIframe" class="preview-iframe" title="Code Output Preview" sandbox="allow-scripts allow-same-origin allow-modals"></iframe>
+                    </div>
+                </div>
+
+                <!-- Tab Pane 2: Code Viewer -->
+                <div class="tab-pane" id="paneCode">
+                    <div class="code-container">
+                        <div class="code-toolbar">
+                            <div class="code-lang-tag">
+                                <span id="codeLangLabel">HTML / CSS / JS</span>
+                            </div>
+                            <button class="btn-copy-code" onclick="copyActiveCode()">
+                                <span>📋 Copy Code</span>
+                            </button>
+                        </div>
+                        <pre class="code-pre"><code id="codeBlockDisplay"></code></pre>
+                    </div>
+                </div>
+
+                <!-- Tab Pane 3: Overview & Notes -->
+                <div class="tab-pane" id="paneOverview">
+                    <div class="overview-box">
+                        <h3><span>📌</span> Concept Breakdown</h3>
+                        <p class="overview-text" id="overviewDescriptionText"></p>
+                        
+                        <div class="key-points-grid" id="keyPointsGrid">
+                            <!-- Dynamic key takeaways -->
+                        </div>
+                    </div>
+
+                    <!-- Linked Project File if exists in workspace -->
+                    <div class="workspace-link-card" id="workspaceLinkSection">
+                        <div class="workspace-file-info">
+                            <div class="file-icon-box">📁</div>
+                            <div class="file-details">
+                                <h4>Linked Workspace File</h4>
+                                <p id="workspaceFilePath">HTML/day6/home.html</p>
+                            </div>
+                        </div>
+                        <a href="#" id="btnOpenWorkspaceFile" target="_blank" class="btn-launch-file">
+                            <span>Open File in Browser ↗</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <label class="footer-status-toggle">
+                    <input type="checkbox" id="taskCompleteCheckbox" onchange="toggleTaskCompletion()">
+                    <span>Mark this Day task as Completed</span>
+                </label>
+
+                <div class="footer-actions">
+                    <button class="btn-secondary" onclick="closeTaskModal()">Back to Dashboard</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-msg" id="toastMessage">
+        <span id="toastIcon">✅</span>
+        <span id="toastText">Action completed successfully!</span>
+    </div>
+
+    <!-- Dynamic Learning Task Dataset & Logic -->
+    <script>
+        const learningData = {
+            html: [
+                {
+                    day: 1,
+                    title: "HTML5 Document Structure & Boilerplate",
+                    description: "Learn the core anatomy of an HTML document including <!DOCTYPE html>, <html>, <head>, <meta charset='UTF-8'>, viewport configuration, and <body> tags.",
+                    keyPoints: [
+                        { title: "<!DOCTYPE html>", desc: "Informs browser about the document type and HTML version." },
+                        { title: "<head> vs <body>", desc: "Head holds metadata/scripts; body renders visual content." },
+                        { title: "Viewport Meta", desc: "Ensures responsiveness on mobile and tablet devices." }
+                    ],
+                    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1: HTML Document Structure</title>
+</head>
+<body>
+    <h1>Welcome to Frontend Development</h1>
+    <p>This is standard HTML5 document structure with essential meta tags.</p>
+</body>
+</html>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:24px; background:#f8fafc; border-radius:8px;">
+                        <h2 style="color:#ff5722; margin-bottom:8px;">🚀 Day 1: HTML5 Document Structure</h2>
+                        <p style="color:#475569; line-height:1.6;">HTML (HyperText Markup Language) is the standard markup language for creating Web pages. It describes the skeleton and structure of a website.</p>
+                        <div style="margin-top:16px; padding:12px; background:#ffffff; border-left:4px solid #ff5722; border-radius:4px;">
+                            <strong>Boilerplate elements:</strong> &lt;!DOCTYPE html&gt;, &lt;html&gt;, &lt;head&gt;, &lt;body&gt;.
+                        </div>
+                    </div>`,
+                    workspaceFile: "HTML/index.html"
+                },
+                {
+                    day: 2,
+                    title: "Headings, Paragraphs & Text Formatting",
+                    description: "Explore the hierarchy of heading elements from <h1> to <h6>, paragraphs <p>, line breaks <br>, horizontal rules <hr>, and inline text formatting tags (<b>, <strong>, <i>, <em>, <mark>, <small>, <sub>, <sup>).",
+                    keyPoints: [
+                        { title: "Heading Hierarchy", desc: "h1 should only appear once per page for optimal SEO." },
+                        { title: "Semantic Emphasis", desc: "Use <strong> and <em> for semantic meaning over <b> and <i>." },
+                        { title: "Self-Closing Tags", desc: "<hr> and <br> do not require closing tags in HTML5." }
+                    ],
+                    code: `<h1>Main Page Title (H1)</h1>
+<h2>Section Subheading (H2)</h2>
+<h3>Subsection Header (H3)</h3>
+<p>This is a paragraph with <strong>bold emphasis</strong>, <em>italic styling</em>, and <mark>highlighted text</mark>.</p>
+<hr>
+<p>Chemical formula: H<sub>2</sub>O | Mathematical power: 2<sup>8</sup> = 256</p>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:24px; background:#ffffff; color:#1e293b;">
+                        <h1 style="color:#0f172a; margin-bottom:4px;">Main Title (H1)</h1>
+                        <h3 style="color:#ff5722; margin-top:0;">Secondary Section (H3)</h3>
+                        <p style="color:#475569; line-height:1.6;">HTML provides rich typography formatting. We can mark text as <strong>strong importance</strong>, <em>emphasized voice</em>, or <mark style="background:#fef08a; padding:2px 6px; border-radius:3px;">highlighted terms</mark>.</p>
+                        <hr style="border:0; border-top:1px solid #e2e8f0; margin:16px 0;">
+                        <p style="color:#64748b; font-size:0.9rem;">Formulas: Water is H<sub>2</sub>O and 10<sup>2</sup> = 100.</p>
+                    </div>`,
+                    workspaceFile: "HTML/day6/home.html"
+                },
+                {
+                    day: 3,
+                    title: "Hyperlinks, Anchors & Navigation",
+                    description: "Master internal and external navigation with <a> tags, absolute vs relative paths, target='_blank' attribute, rel='noopener noreferrer', and bookmark anchors (#id).",
+                    keyPoints: [
+                        { title: "href Attribute", desc: "Specifies destination URL or document section bookmark." },
+                        { title: "target='_blank'", desc: "Opens external links in a new browser tab safely." },
+                        { title: "Page Bookmarking", desc: "Use href='#sectionId' to jump directly to an element id." }
+                    ],
+                    code: `<nav>
+    <a href="#home">Home</a> | 
+    <a href="#features">Features</a> | 
+    <a href="#contact">Contact</a>
+</nav>
+
+<a href="https://developer.mozilla.org" target="_blank" rel="noopener noreferrer">
+    Visit MDN Web Docs ↗
+</a>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:24px; background:#f1f5f9; border-radius:8px;">
+                        <div style="background:#ffffff; padding:12px 18px; border-radius:6px; margin-bottom:16px; display:flex; gap:16px;">
+                            <a href="#" style="color:#ff5722; text-decoration:none; font-weight:600;">Home</a>
+                            <a href="#" style="color:#475569; text-decoration:none;">Articles</a>
+                            <a href="#" style="color:#475569; text-decoration:none;">Projects</a>
+                            <a href="#" style="color:#475569; text-decoration:none;">Contact</a>
+                        </div>
+                        <p style="color:#334155;">Clicking on relative anchor tags allows smooth intra-page navigation and modular page routing.</p>
+                    </div>`,
+                    workspaceFile: "HTML/day6/home.html"
+                },
+                {
+                    day: 4,
+                    title: "Lists (Ordered, Unordered & Definition)",
+                    description: "Construct structured lists using <ul> (unordered bulleted), <ol> (ordered numerical/alphabetical), <li> (list item), and <dl>, <dt>, <dd> for glossaries and definitions.",
+                    keyPoints: [
+                        { title: "<ul> Unordered", desc: "Best for navigation bars, bullet points, and menus." },
+                        { title: "<ol> Ordered", desc: "Best for sequential steps, instructions, and rankings." },
+                        { title: "<dl> Description", desc: "Pairs terms (<dt>) with detailed explanations (<dd>)." }
+                    ],
+                    code: `<!-- Ordered List -->
+<h3>Recipe Steps</h3>
+<ol type="1">
+    <li>Gather ingredients</li>
+    <li>Mix dry and wet components</li>
+    <li>Bake for 25 minutes at 180°C</li>
+</ol>
+
+<!-- Definition List -->
+<dl>
+    <dt><strong>HTML</strong></dt>
+    <dd>Standard markup language for web documents.</dd>
+</dl>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#ff5722; margin-top:0;">📋 Frontend Development Checklist</h4>
+                        <ol style="color:#334155; line-height:1.8; padding-left:20px;">
+                            <li>Semantic HTML markup structure</li>
+                            <li>Clean CSS styles and responsive layout</li>
+                            <li>Modular JavaScript logic and DOM interactivity</li>
+                        </ol>
+                        <div style="background:#fff7ed; border-left:4px solid #ff5722; padding:10px 14px; border-radius:4px; margin-top:12px;">
+                            <dt style="font-weight:700; color:#9a3412;">DOM (Document Object Model)</dt>
+                            <dd style="margin:4px 0 0 0; color:#7c2d12; font-size:0.9rem;">The tree-like data representation of HTML in memory.</dd>
+                        </div>
+                    </div>`,
+                    workspaceFile: "HTML/day6/home.html"
+                },
+                {
+                    day: 5,
+                    title: "Multimedia: Images, Audio & Video",
+                    description: "Embed media assets properly with responsive <img> (src, alt, loading='lazy'), <picture> element, <audio controls>, and <video controls poster autoplay loop>.",
+                    keyPoints: [
+                        { title: "alt Attribute", desc: "Mandatory for accessibility screen readers and SEO." },
+                        { title: "Video Controls", desc: "Enables playback bar, mute, fullscreen, and volume slider." },
+                        { title: "Formats", desc: "Modern formats include WebP, AVIF for images; MP4/WebM for video." }
+                    ],
+                    code: `<figure>
+    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" alt="Laptop with code" width="400" loading="lazy">
+    <figcaption>Modern Web Development Workspace</figcaption>
+</figure>
+
+<video width="320" height="240" controls>
+    <source src="assets/vidoes/vidoes..mp4" type="video/mp4">
+    Your browser does not support video tag.
+</video>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#f8fafc; border-radius:8px; text-align:center;">
+                        <div style="background:#e2e8f0; height:120px; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#64748b; font-weight:600; margin-bottom:12px;">
+                            🖼️ Media Container (Image / Video Preview)
+                        </div>
+                        <p style="color:#475569; font-size:0.875rem; margin:0;">HTML5 &lt;picture&gt;, &lt;video&gt;, and &lt;audio&gt; tags provide native multi-device streaming.</p>
+                    </div>`,
+                    workspaceFile: "CSS/Day5/assets/vidoes/vidoes..mp4"
+                },
+                {
+                    day: 6,
+                    title: "Semantic HTML5 Tags & Layout Architecture",
+                    description: "Construct meaningful structural layouts with <header>, <nav>, <main>, <section>, <article>, <aside>, <footer>, <dialog>, and <details>/<summary> widgets.",
+                    keyPoints: [
+                        { title: "Semantic Tags", desc: "Gives clear meaning to search engines and screen readers." },
+                        { title: "<details> & <summary>", desc: "Creates native accordions without needing JavaScript." },
+                        { title: "<dialog>", desc: "Built-in native modal dialog popup in modern HTML5." }
+                    ],
+                    code: `<header>
+    <h1>Personal Profile</h1>
+    <nav><a href="#about">About</a></nav>
+</header>
+
+<main>
+    <article>
+        <h2>MS Dhoni Career Highlights</h2>
+        <p>Mahendra Singh Dhoni is an Indian professional cricketer...</p>
+        <details>
+            <summary>Click to view playing style</summary>
+            <p>Right-handed batsman and wicket-keeper.</p>
+        </details>
+    </article>
+</main>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#ffffff; border-radius:8px; border:1px solid #e2e8f0;">
+                        <header style="border-bottom:2px solid #ff5722; padding-bottom:8px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                            <h3 style="margin:0; color:#0f172a;">🏏 Sports Biographies</h3>
+                            <span style="background:#ffedd5; color:#c2410c; padding:2px 8px; border-radius:12px; font-size:0.75rem; font-weight:600;">HTML5 Semantic</span>
+                        </header>
+                        <h4 style="margin:0 0 6px 0; color:#1e293b;">MS Dhoni - Legendary Captain</h4>
+                        <p style="color:#475569; font-size:0.875rem; line-height:1.5;">Led India to victory in the 2007 T20 World Cup, 2011 Cricket World Cup, and 2013 Champions Trophy.</p>
+                        <details style="background:#f8fafc; padding:8px 12px; border-radius:6px; border:1px solid #e2e8f0; margin-top:8px;">
+                            <summary style="font-weight:600; color:#ff5722; cursor:pointer;">Playing Style & Helicopter Shot</summary>
+                            <p style="margin:6px 0 0 0; font-size:0.825rem; color:#475569;">Unorthodox batsman renowned for incredible finishing power in high pressure matches.</p>
+                        </details>
+                    </div>`,
+                    workspaceFile: "HTML/day6/home.html"
+                },
+                {
+                    day: 7,
+                    title: "HTML Tables, Rows, Cells & Span Attributes",
+                    description: "Format complex tabular data using <table>, <thead>, <tbody>, <tfoot>, <tr>, <th>, <td>, along with colspan and rowspan for cell merging.",
+                    keyPoints: [
+                        { title: "Table Semantics", desc: "thead, tbody, and tfoot structure data cleanly." },
+                        { title: "colspan / rowspan", desc: "Merges multiple column cells or row cells into one." },
+                        { title: "Scope Attribute", desc: "scope='col' or 'row' enhances accessibility for screen readers." }
+                    ],
+                    code: `<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Emp ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>101</td>
+            <td>Abiseik Moorthy</td>
+            <td>Engineering</td>
+            <td>₹75,000</td>
+        </tr>
+        <tr>
+            <td>102</td>
+            <td>Priya Sharma</td>
+            <td>Design</td>
+            <td>₹68,000</td>
+        </tr>
+    </tbody>
+</table>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#ff5722; margin-top:0;">📊 Employee Directory Table</h4>
+                        <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.875rem;">
+                            <thead>
+                                <tr style="background:#ff5722; color:#ffffff;">
+                                    <th style="padding:8px 12px; border-radius:4px 0 0 0;">ID</th>
+                                    <th style="padding:8px 12px;">Employee Name</th>
+                                    <th style="padding:8px 12px;">Role</th>
+                                    <th style="padding:8px 12px; border-radius:0 4px 0 0;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom:1px solid #e2e8f0; background:#f8fafc;">
+                                    <td style="padding:8px 12px;">#01</td>
+                                    <td style="padding:8px 12px; font-weight:600;">Abiseik Moorthy</td>
+                                    <td style="padding:8px 12px;">Frontend Dev</td>
+                                    <td style="padding:8px 12px;"><span style="color:#15803d; background:#dcfce7; padding:2px 6px; border-radius:4px; font-size:0.75rem;">Active</span></td>
+                                </tr>
+                                <tr style="border-bottom:1px solid #e2e8f0;">
+                                    <td style="padding:8px 12px;">#02</td>
+                                    <td style="padding:8px 12px; font-weight:600;">Kavitha Raman</td>
+                                    <td style="padding:8px 12px;">UI/UX Designer</td>
+                                    <td style="padding:8px 12px;"><span style="color:#15803d; background:#dcfce7; padding:2px 6px; border-radius:4px; font-size:0.75rem;">Active</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>`,
+                    workspaceFile: "HTML/day7/employe.html"
+                },
+                {
+                    day: 8,
+                    title: "HTML Forms, Inputs & Controls",
+                    description: "Build interactive user forms using <form>, <input> (text, email, password, tel, date, radio, checkbox), <textarea>, <label>, and action/method attributes.",
+                    keyPoints: [
+                        { title: "<label for='id'>", desc: "Binds labels to inputs, increasing clickable tap area." },
+                        { title: "Input Types", desc: "email, tel, number invoke specialized mobile keyboards." },
+                        { title: "Form Actions", desc: "Controls HTTP GET/POST submissions to endpoints." }
+                    ],
+                    code: `<form action="/submit" method="POST">
+    <label for="username">Full Name:</label><br>
+    <input type="text" id="username" name="username" placeholder="Enter name" required><br><br>
+
+    <label for="useremail">Email Address:</label><br>
+    <input type="email" id="useremail" name="useremail" placeholder="name@domain.com"><br><br>
+
+    <label for="feedback">Message:</label><br>
+    <textarea id="feedback" name="feedback" rows="3"></textarea><br><br>
+
+    <input type="submit" value="Submit Form">
+    <input type="reset" value="Clear">
+</form>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#f8fafc; border-radius:8px;">
+                        <h4 style="color:#ff5722; margin-top:0;">📝 Student Feedback & Contact Form</h4>
+                        <div style="display:flex; flex-direction:column; gap:10px; max-width:320px;">
+                            <input type="text" placeholder="Full Name" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                            <input type="email" placeholder="Email Address" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px;">
+                            <textarea rows="2" placeholder="Your Message" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-family:sans-serif;"></textarea>
+                            <button style="background:#ff5722; color:#ffffff; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">Send Inquiry</button>
+                        </div>
+                    </div>`,
+                    workspaceFile: "HTML/day8/Contactfrom.html"
+                },
+                {
+                    day: 9,
+                    title: "Advanced Form Elements & Validation Attributes",
+                    description: "Learn advanced form widgets: <select>, <option>, <optgroup>, <datalist>, <fieldset>, <legend>, along with validation attributes: required, pattern, min, max, maxlength.",
+                    keyPoints: [
+                        { title: "<datalist>", desc: "Provides autocomplete suggestions for text inputs." },
+                        { title: "HTML5 Validation", desc: "Native browser validation without writing custom JS." },
+                        { title: "<fieldset>", desc: "Groups related form elements with an explanatory <legend>." }
+                    ],
+                    code: `<form>
+    <fieldset>
+        <legend>College Admission Details</legend>
+        
+        <label for="course">Select Degree Course:</label>
+        <select id="course" name="course" required>
+            <option value="">-- Choose Course --</option>
+            <option value="cs">B.Sc. Computer Science</option>
+            <option value="it">B.Sc. Information Technology</option>
+            <option value="bca">Bachelor of Computer Applications</option>
+        </select>
+        
+        <br><br>
+        <label for="age">Age (18 - 30):</label>
+        <input type="number" id="age" name="age" min="18" max="30" required>
+    </fieldset>
+</form>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <fieldset style="border:1px solid #ff5722; border-radius:6px; padding:16px;">
+                            <legend style="color:#ff5722; font-weight:700; padding:0 8px;">🎓 College Registration</legend>
+                            <div style="margin-bottom:10px;">
+                                <label style="font-size:0.85rem; color:#334155; display:block; margin-bottom:4px;">Select Department:</label>
+                                <select style="width:100%; padding:6px 10px; border:1px solid #cbd5e1; border-radius:4px;">
+                                    <option>Arts & Science (B.Sc)</option>
+                                    <option>Computer Science & IT</option>
+                                    <option>Commerce & Management</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                    </div>`,
+                    workspaceFile: "HTML/day9/collageform.html"
+                },
+                {
+                    day: 10,
+                    title: "Head Elements, Metadata, Favicon & SEO",
+                    description: "Configure document metadata with <meta charset>, <meta name='description'>, <meta name='keywords'>, Open Graph tags for social preview, favicon icons, and Google Fonts.",
+                    keyPoints: [
+                        { title: "Meta Description", desc: "Search snippet displayed on Google search results." },
+                        { title: "Favicon Link", desc: "Sets tab icon in browser window." },
+                        { title: "Open Graph Tags", desc: "Controls card preview appearance on WhatsApp and Twitter." }
+                    ],
+                    code: `<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official Student Portfolio and Learning Dashboard">
+    <meta name="author" content="Abiseik Moorthy">
+    
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="My Learning Dashboard">
+    <meta property="og:description" content="Front-end Development Tasks and Projects">
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Student Learning Portal</title>
+</head>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#0f172a; color:#f8fafc; border-radius:8px;">
+                        <h4 style="color:#ff5722; margin:0 0 8px 0;">🔍 SEO & Head Tag Inspector</h4>
+                        <div style="background:#1e293b; padding:12px; border-radius:6px; font-family:monospace; font-size:0.8rem; line-height:1.6; color:#93c5fd;">
+                            &lt;meta name="description" content="..."&gt;<br>
+                            &lt;meta property="og:image" content="..."&gt;<br>
+                            &lt;link rel="icon" href="favicon.ico"&gt;
+                        </div>
+                    </div>`,
+                    workspaceFile: "HTML/day10/head.html"
+                },
+                {
+                    day: 11,
+                    title: "HTML5 Semantic Web Layouts & Sections",
+                    description: "Structure complete multi-section web portals using nested articles, aside sidebars, headers, footers, section containers, and accessible landmark navigation.",
+                    keyPoints: [
+                        { title: "<aside>", desc: "Sidebar content tangentially related to the main article." },
+                        { title: "Landmark Roles", desc: "Aids assistive technologies in screen navigation." },
+                        { title: "Component Isolation", desc: "Articles are independently distributable widgets." }
+                    ],
+                    code: `<div class="portal-layout">
+    <header><h1>Tech News Daily</h1></header>
+    <div class="content-row">
+        <main>
+            <article>
+                <h2>Next-Gen Frontend Tools</h2>
+                <p>Modern build tools and frameworks streamline developer productivity...</p>
+            </article>
+        </main>
+        <aside>
+            <h3>Trending Topics</h3>
+            <ul><li>CSS Grid</li><li>Web Components</li></ul>
+        </aside>
+    </div>
+    <footer><p>&copy; 2026 Student Learning Portal</p></footer>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#f1f5f9; border-radius:8px;">
+                        <div style="display:grid; grid-template-columns:2fr 1fr; gap:12px;">
+                            <div style="background:#ffffff; padding:14px; border-radius:6px; border:1px solid #e2e8f0;">
+                                <h4 style="margin:0 0 6px 0; color:#0f172a;">Article Content</h4>
+                                <p style="font-size:0.825rem; color:#475569; margin:0;">Semantic &lt;main&gt; and &lt;article&gt; components provide structured reading hierarchy.</p>
+                            </div>
+                            <div style="background:#ffedd5; padding:14px; border-radius:6px; border:1px solid #fed7aa;">
+                                <h5 style="margin:0 0 6px 0; color:#c2410c;">&lt;aside&gt; Sidebar</h5>
+                                <span style="font-size:0.75rem; color:#9a3412;">Related Links & Tags</span>
+                            </div>
+                        </div>
+                    </div>`,
+                    workspaceFile: "HTML/day15_3/task2.html"
+                },
+                {
+                    day: 12,
+                    title: "HTML5 Native Dialogs & Accessible UI Elements",
+                    description: "Implement modern HTML5 native popups using <dialog>, custom summary toggles, progress bars <progress>, meter gauges <meter>, and accessible form controls.",
+                    keyPoints: [
+                        { title: "<dialog>.showModal()", desc: "Opens modal with built-in ::backdrop styling." },
+                        { title: "<progress> & <meter>", desc: "Native progress indicators and scalar gauges." },
+                        { title: "Accessibility (a11y)", desc: "Semantic tags minimize custom ARIA complexity." }
+                    ],
+                    code: `<dialog id="favDialog">
+    <form method="dialog">
+        <h3>Modal Dialog Popup</h3>
+        <p>This is a native HTML5 modal window!</p>
+        <button value="cancel">Close</button>
+    </form>
+</dialog>
+
+<button onclick="document.getElementById('favDialog').showModal()">
+    Open Modal Window
+</button>
+
+<br><br>
+<label>Course Progress: </label>
+<progress value="85" max="100">85%</progress>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#ffffff; border-radius:8px; text-align:center;">
+                        <h4 style="color:#ff5722; margin-top:0;">Native HTML5 Progress & Dialog</h4>
+                        <div style="margin:12px 0;">
+                            <label style="font-size:0.85rem; color:#334155; display:block; margin-bottom:6px;">Learning Milestones (10/12 Days):</label>
+                            <progress value="83" max="100" style="width:80%; height:18px; accent-color:#ff5722;"></progress>
+                        </div>
+                        <span style="font-size:0.8rem; color:#64748b;">83% Complete</span>
+                    </div>`,
+                    workspaceFile: "HTML/day6/home.html"
+                }
+            ],
+            css: [
+                {
+                    day: 1,
+                    title: "CSS Selectors, Colors & Typography",
+                    description: "Learn fundamental CSS syntax: element, class (.class), ID (#id), group selectors, RGB/HEX/HSL color systems, font families, font weights, and text alignment.",
+                    keyPoints: [
+                        { title: "Specificity Hierarchy", desc: "Inline styles > IDs (#) > Classes (.) > Elements." },
+                        { title: "Modern Colors", desc: "Supports HEX (#ff5722), RGB rgb(255,87,34), and HSL." },
+                        { title: "Typography Styling", desc: "Controls line-height, letter-spacing, and font-family." }
+                    ],
+                    code: `/* Element Selector */
+body {
+    background-color: #0f172a;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #f8fafc;
+}
+
+/* Class Selector */
+.card-highlight {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 20px;
+    color: #38bdf8;
+}
+
+/* ID Selector */
+#page-title {
+    font-size: 2rem;
+    text-align: center;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#0f172a; border-radius:8px;">
+                        <h3 style="color:#38bdf8; text-align:center; margin:0 0 10px 0;">Styled Heading with CSS</h3>
+                        <p style="color:#94a3b8; text-align:center; font-size:0.9rem; line-height:1.6;">Applying color properties, font styling, and background tints creates professional interfaces.</p>
+                    </div>`,
+                    workspaceFile: "CSS/Day1/changlle.html"
+                },
+                {
+                    day: 2,
+                    title: "CSS Box Model: Margin, Padding, Border & Content",
+                    description: "Master the fundamental CSS Box Model. Understand how content width/height, inner padding, borders, and outer margins combine to shape every UI card component.",
+                    keyPoints: [
+                        { title: "box-sizing: border-box", desc: "Includes padding and border inside total element width." },
+                        { title: "Padding vs Margin", desc: "Padding creates inner breathing room; Margin creates outer spacing." },
+                        { title: "Borders & Shadows", desc: "Outlines shapes and creates depth via box-shadow." }
+                    ],
+                    code: `* {
+    box-sizing: border-box;
+}
+
+.product-card {
+    width: 280px;
+    background: #ffffff;
+    border: 2px solid #0288d1;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 20px auto;
+    box-shadow: 0 8px 24px rgba(2, 136, 209, 0.15);
+    text-align: center;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#f8fafc; display:flex; justify-content:center;">
+                        <div style="width:240px; background:#ffffff; border:2px solid #0288d1; border-radius:10px; padding:16px; text-align:center; box-shadow:0 4px 12px rgba(2,136,209,0.2);">
+                            <div style="font-size:2rem; margin-bottom:4px;">📱</div>
+                            <h4 style="margin:0 0 4px 0; color:#0f172a;">Product Card</h4>
+                            <p style="color:#0288d1; font-weight:700; margin:0 0 10px 0;">₹49,999</p>
+                            <button style="background:#0288d1; color:#fff; border:none; padding:6px 14px; border-radius:6px; font-weight:600; cursor:pointer;">Buy Now</button>
+                        </div>
+                    </div>`,
+                    workspaceFile: "CSS/Day2/productcard.html"
+                },
+                {
+                    day: 3,
+                    title: "CSS Backgrounds, Gradients & Multi-page Themes",
+                    description: "Design vibrant backgrounds using linear gradients, radial gradients, background images (cover, contain, repeat), background-clip, and multi-page color schemes.",
+                    keyPoints: [
+                        { title: "Linear Gradients", desc: "Blends multiple colors along a linear angle (e.g., 135deg)." },
+                        { title: "background-size: cover", desc: "Ensures background imagery fills container proportionally." },
+                        { title: "Thematic Styling", desc: "Applies unified palettes across related website pages." }
+                    ],
+                    code: `.gradient-hero {
+    background: linear-gradient(135deg, #0288d1 0%, #00e5ff 100%);
+    color: #ffffff;
+    padding: 40px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(2, 136, 209, 0.3);
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; background:linear-gradient(135deg, #0288d1 0%, #00e5ff 100%); padding:28px 20px; border-radius:12px; color:#ffffff; text-align:center;">
+                        <h3 style="margin:0 0 8px 0;">Vibrant CSS Gradients</h3>
+                        <p style="margin:0; opacity:0.95; font-size:0.9rem;">Modern gradient styling provides eye-catching hero headers and buttons.</p>
+                    </div>`,
+                    workspaceFile: "CSS/day3/chennai.html"
+                },
+                {
+                    day: 4,
+                    title: "CSS Display Properties (Block, Inline, Inline-Block, None)",
+                    description: "Understand the visual layout behavior of display values: block (full width), inline (flows with text), inline-block (flows inline but accepts width/height), and display: none.",
+                    keyPoints: [
+                        { title: "Display Block", desc: "Starts on a new line and occupies the entire container width." },
+                        { title: "Display Inline-Block", desc: "Allows setting width and height without forcing line breaks." },
+                        { title: "Display None", desc: "Completely removes element from the visual rendering flow." }
+                    ],
+                    code: `/* Inline-Block Button Pills */
+.pill-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 4px;
+    background-color: #0288d1;
+    color: white;
+    border-radius: 20px;
+    text-decoration: none;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#f8fafc; border-radius:8px;">
+                        <h4 style="color:#0288d1; margin-top:0;">Inline-Block Navigation Chips</h4>
+                        <span style="display:inline-block; padding:6px 14px; background:#0288d1; color:#fff; border-radius:16px; font-size:0.8rem; margin:2px;">HTML5</span>
+                        <span style="display:inline-block; padding:6px 14px; background:#0288d1; color:#fff; border-radius:16px; font-size:0.8rem; margin:2px;">CSS3</span>
+                        <span style="display:inline-block; padding:6px 14px; background:#0288d1; color:#fff; border-radius:16px; font-size:0.8rem; margin:2px;">Bootstrap</span>
+                    </div>`,
+                    workspaceFile: "CSS/day4/display.html"
+                },
+                {
+                    day: 5,
+                    title: "CSS Positioning: Relative, Absolute, Fixed & Sticky",
+                    description: "Learn precision layout control using CSS position properties: static, relative (anchor for absolutes), absolute (offset from nearest positioned ancestor), fixed, and sticky navigation bars.",
+                    keyPoints: [
+                        { title: "Position Relative", desc: "Allows offset positioning and acts as anchor coordinate frame." },
+                        { title: "Position Absolute", desc: "Places elements precisely with top, right, bottom, left offsets." },
+                        { title: "Position Sticky", desc: "Toggles between relative and fixed based on user scroll offset." }
+                    ],
+                    code: `.parent-card {
+    position: relative;
+    width: 300px;
+    height: 180px;
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.floating-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #e11d48;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#f1f5f9; display:flex; justify-content:center;">
+                        <div style="position:relative; width:220px; background:#1e293b; color:#fff; padding:18px; border-radius:10px;">
+                            <span style="position:absolute; top:-8px; right:-8px; background:#ef4444; color:#fff; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:12px;">NEW</span>
+                            <h4 style="margin:0 0 6px 0; color:#38bdf8;">Positioned Card</h4>
+                            <p style="margin:0; font-size:0.8rem; color:#94a3b8;">Relative container anchoring an absolute badge.</p>
+                        </div>
+                    </div>`,
+                    workspaceFile: "CSS/Day5/index.html"
+                },
+                {
+                    day: 6,
+                    title: "CSS Flexbox Layouts, Alignment & Axis Control",
+                    description: "Master CSS Flexbox 1D layout: display: flex, flex-direction (row/column), justify-content (main-axis alignment), align-items (cross-axis alignment), gap, and flex-wrap.",
+                    keyPoints: [
+                        { title: "justify-content", desc: "Aligns items along main axis (center, space-between, space-around)." },
+                        { title: "align-items", desc: "Aligns items along cross axis (center, flex-start, stretch)." },
+                        { title: "gap property", desc: "Provides clean gutter spacing between flex children without margin hacks." }
+                    ],
+                    code: `.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    background: #0f172a;
+    padding: 16px 24px;
+    border-radius: 12px;
+}
+
+.flex-item {
+    background: #1e293b;
+    color: #38bdf8;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#0f172a; border-radius:8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+                            <div style="background:#1e293b; color:#38bdf8; padding:8px 14px; border-radius:6px; font-size:0.85rem; font-weight:600;">Flex Item 1</div>
+                            <div style="background:#1e293b; color:#38bdf8; padding:8px 14px; border-radius:6px; font-size:0.85rem; font-weight:600;">Flex Item 2</div>
+                            <div style="background:#1e293b; color:#38bdf8; padding:8px 14px; border-radius:6px; font-size:0.85rem; font-weight:600;">Flex Item 3</div>
+                        </div>
+                    </div>`,
+                    workspaceFile: "CSS/day6/task1.html"
+                },
+                {
+                    day: 7,
+                    title: "CSS Grid Layouts: Columns, Rows & Areas",
+                    description: "Learn two-dimensional CSS Grid layouts: grid-template-columns (repeat, 1fr, minmax), grid-template-rows, grid-template-areas, and auto-fit/auto-fill responsive strategies.",
+                    keyPoints: [
+                        { title: "repeat(auto-fit, minmax())", desc: "Creates auto-responsive grid cards without media queries." },
+                        { title: "grid-template-areas", desc: "Visually maps page layout regions (header, main, sidebar, footer)." },
+                        { title: "2D Alignment", desc: "Controls rows and columns simultaneously with clean syntax." }
+                    ],
+                    code: `.grid-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px;
+}
+
+.grid-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#f8fafc; border-radius:8px;">
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                            <div style="background:#0288d1; color:#fff; padding:12px; border-radius:6px; text-align:center; font-size:0.8rem; font-weight:600;">Col 1</div>
+                            <div style="background:#0288d1; color:#fff; padding:12px; border-radius:6px; text-align:center; font-size:0.8rem; font-weight:600;">Col 2</div>
+                            <div style="background:#0288d1; color:#fff; padding:12px; border-radius:6px; text-align:center; font-size:0.8rem; font-weight:600;">Col 3</div>
+                        </div>
+                    </div>`,
+                    workspaceFile: "CSS/day6/task2.html"
+                },
+                {
+                    day: 8,
+                    title: "CSS Transitions & 2D/3D Transforms",
+                    description: "Bring interfaces to life using transition (property, duration, timing-function, delay), and transform (translate, rotate, scale, skew, matrix).",
+                    keyPoints: [
+                        { title: "transition", desc: "Interpolates CSS property changes smoothly over time." },
+                        { title: "transform: scale(1.05)", desc: "Elevates cards on mouse hover without triggering DOM reflow." },
+                        { title: "GPU Acceleration", desc: "Transforms leverage hardware acceleration for 60fps rendering." }
+                    ],
+                    code: `.interactive-btn {
+    background: #0288d1;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-btn:hover {
+    background: #01579b;
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(2, 136, 209, 0.4);
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:24px; background:#ffffff; text-align:center; border-radius:8px;">
+                        <button style="background:#0288d1; color:#fff; border:none; padding:10px 24px; border-radius:8px; font-weight:600; cursor:pointer; box-shadow:0 4px 12px rgba(2,136,209,0.3);">
+                            Hover & Elevate Me ✨
+                        </button>
+                    </div>`,
+                    workspaceFile: "CSS/Day2/challenge.html"
+                },
+                {
+                    day: 9,
+                    title: "CSS Keyframe Animations & Loading Spinners",
+                    description: "Craft continuous UI animations using @keyframes, animation-name, animation-duration, iteration-count (infinite), timing-function, and pulsing spinners.",
+                    keyPoints: [
+                        { title: "@keyframes", desc: "Defines multistep animation stages from 0% to 100%." },
+                        { title: "animation-iteration-count", desc: "Set to 'infinite' for continuous loaders and beacons." },
+                        { title: "transform-origin", desc: "Sets pivot coordinate for rotation animations." }
+                    ],
+                    code: `@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(2, 136, 209, 0.2);
+    border-top: 4px solid #0288d1;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:24px; background:#0f172a; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:8px;">
+                        <div style="width:36px; height:36px; border:4px solid rgba(2,136,209,0.2); border-top:4px solid #38bdf8; border-radius:50%; animation:spin 1s linear infinite;"></div>
+                        <p style="color:#94a3b8; font-size:0.85rem; margin:12px 0 0 0;">CSS3 Keyframe Spinner Running</p>
+                        <style>@keyframes spin { 0% { transform:rotate(0deg); } 100% { transform:rotate(360deg); } }</style>
+                    </div>`,
+                    workspaceFile: "CSS/Day5/task2.html"
+                },
+                {
+                    day: 10,
+                    title: "Responsive Web Design & CSS Media Queries",
+                    description: "Design cross-device web applications with CSS Media Queries (@media (max-width: 768px)), responsive fluid typography (clamp, rem, vw), and mobile-first methodologies.",
+                    keyPoints: [
+                        { title: "Mobile-First", desc: "Base styles target phones; min-width queries enhance for desktops." },
+                        { title: "Standard Breakpoints", desc: "Mobile (480px), Tablet (768px), Laptop (1024px), Desktop (1280px)." },
+                        { title: "Fluid Units", desc: "rem, vw, vh, and clamp() ensure scalable readability." }
+                    ],
+                    code: `/* Desktop 4 columns */
+.responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* Tablet (2 columns) */
+@media (max-width: 1024px) {
+    .responsive-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile (1 column) */
+@media (max-width: 640px) {
+    .responsive-grid {
+        grid-template-columns: 1fr;
+    }
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px; text-align:center;">
+                        <h4 style="color:#0288d1; margin:0 0 8px 0;">📱 Fluid Responsive Card</h4>
+                        <p style="color:#475569; font-size:0.875rem; margin:0;">Resize the browser window to see columns dynamically reflow from 4 → 2 → 1 column.</p>
+                    </div>`,
+                    workspaceFile: "CSS/day10/mediaquery.html"
+                },
+                {
+                    day: 11,
+                    title: "CSS Custom Properties (Variables) & Dark Mode",
+                    description: "Architect scalable design systems using CSS Variables (:root { --primary-color: #0288d1; }), theme switching, and prefers-color-scheme media queries.",
+                    keyPoints: [
+                        { title: ":root Scope", desc: "Declares global custom properties accessible across all rules." },
+                        { title: "var(--name, fallback)", desc: "Dynamically retrieves value with optional fallback support." },
+                        { title: "Instant Theming", desc: "Changing root variables updates the entire website instantly." }
+                    ],
+                    code: `:root {
+    --brand-primary: #0288d1;
+    --brand-bg: #0f172a;
+    --brand-text: #f8fafc;
+}
+
+[data-theme="light"] {
+    --brand-bg: #ffffff;
+    --brand-text: #0f172a;
+}
+
+.theme-card {
+    background-color: var(--brand-bg);
+    color: var(--brand-text);
+    border-left: 4px solid var(--brand-primary);
+    padding: 16px;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#0f172a; color:#f8fafc; border-left:4px solid #0288d1; border-radius:6px;">
+                        <h4 style="margin:0 0 4px 0; color:#38bdf8;">CSS Variables Theme Demo</h4>
+                        <p style="margin:0; font-size:0.85rem; color:#94a3b8;">CSS Custom Properties drive dynamic dark/light theme switching.</p>
+                    </div>`,
+                    workspaceFile: "CSS/day10/assets/css/style1.css"
+                },
+                {
+                    day: 12,
+                    title: "Modern Glassmorphism & Pseudo-Elements (::before/::after)",
+                    description: "Create premium UI aesthetics using backdrop-filter blur, translucent borders, clip-paths, and pseudo-elements (::before and ::after) for decorative badges and icons.",
+                    keyPoints: [
+                        { title: "backdrop-filter: blur()", desc: "Frosted-glass effect blurring content underneath element." },
+                        { title: "::before / ::after", desc: "Inserts cosmetic UI elements without adding extra HTML tags." },
+                        { title: "subtle rgba() borders", desc: "Creates modern depth and frosted translucency." }
+                    ],
+                    code: `.glassmorphism-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:24px; background:linear-gradient(135deg, #0288d1, #7b1fa2); border-radius:12px; display:flex; justify-content:center;">
+                        <div style="background:rgba(255,255,255,0.15); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.3); border-radius:10px; padding:16px 24px; color:#ffffff; text-align:center;">
+                            <h4 style="margin:0 0 4px 0;">✨ Glassmorphic Card</h4>
+                            <p style="margin:0; font-size:0.85rem; opacity:0.9;">Frosted glass effect with backdrop-filter blur.</p>
+                        </div>
+                    </div>`,
+                    workspaceFile: "CSS/Day2/employecard.html"
+                }
+            ],
+            bootstrap: [
+                {
+                    day: 1,
+                    title: "Bootstrap 5 Setup, CDN, Containers & Typography",
+                    description: "Integrate Bootstrap 5 via CDN, explore container (.container, .container-fluid), responsive typography headings (.h1-.h6, .display-1 to .display-6), and text colors.",
+                    keyPoints: [
+                        { title: "CDN Integration", desc: "Single CSS <link> and JS <script> bundle loads the full framework." },
+                        { title: ".container vs .container-fluid", desc: "Fixed max-width breakpoint container vs 100% fluid width." },
+                        { title: "Contextual Colors", desc: "text-primary, text-success, bg-warning, bg-danger utilities." }
+                    ],
+                    code: `<!-- Bootstrap 5 CDN Link -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container py-4 text-center">
+    <div class="p-4 bg-primary text-white rounded-3 shadow">
+        <h1 class="display-5 fw-bold">Bootstrap 5 Ready</h1>
+        <p class="lead">Fast, responsive frontend toolkit for rapid prototyping.</p>
+    </div>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#7952b3; color:#ffffff; border-radius:8px; text-align:center;">
+                        <h3 style="margin:0 0 6px 0;">🅱️ Bootstrap 5 Loaded</h3>
+                        <p style="margin:0; font-size:0.9rem; opacity:0.95;">Using Bootstrap container, display typography, and contextual colors.</p>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day1/bootstrap.html"
+                },
+                {
+                    day: 2,
+                    title: "Bootstrap 12-Column Grid System & Breakpoints",
+                    description: "Master the 12-column responsive layout engine using .row, .col-*, and breakpoint tiers: .col-sm-*, .col-md-*, .col-lg-*, and .col-xl-*.",
+                    keyPoints: [
+                        { title: "12-Column System", desc: "Any row can subdivide into factors of 12 (e.g., 4+4+4 or 8+4)." },
+                        { title: "Responsive Stacking", desc: "Columns stack vertically on mobile and expand on desktops." },
+                        { title: "Gutters (.g-*)", desc: "Controls horizontal and vertical spacing between columns." }
+                    ],
+                    code: `<div class="container">
+    <div class="row g-3">
+        <div class="col-md-4 col-sm-6">
+            <div class="p-3 bg-light border rounded">Column 1 (4 cols)</div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="p-3 bg-light border rounded">Column 2 (4 cols)</div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <div class="p-3 bg-light border rounded">Column 3 (4 cols)</div>
+        </div>
+    </div>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#f8fafc; border-radius:8px;">
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
+                            <div style="background:#f3e8ff; border:1px solid #d8b4fe; padding:10px; border-radius:6px; text-align:center; color:#6b21a8; font-size:0.8rem; font-weight:600;">col-md-4</div>
+                            <div style="background:#f3e8ff; border:1px solid #d8b4fe; padding:10px; border-radius:6px; text-align:center; color:#6b21a8; font-size:0.8rem; font-weight:600;">col-md-4</div>
+                            <div style="background:#f3e8ff; border:1px solid #d8b4fe; padding:10px; border-radius:6px; text-align:center; color:#6b21a8; font-size:0.8rem; font-weight:600;">col-md-4</div>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day2/assignment1.html"
+                },
+                {
+                    day: 3,
+                    title: "Bootstrap Buttons, Badges & Alert Components",
+                    description: "Utilize pre-built Bootstrap interactive components: button styles (.btn-primary, .btn-outline-*), button sizes (.btn-lg, .btn-sm), badges (.badge), and dismissible alerts.",
+                    keyPoints: [
+                        { title: ".btn and .btn-*", desc: "Provides polished clickables with focus rings and active states." },
+                        { title: ".alert and .alert-dismissible", desc: "Notification banners with optional close buttons." },
+                        { title: ".badge", desc: "Compact labels for counts, statuses, and tags." }
+                    ],
+                    code: `<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success!</strong> Task completed successfully.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+
+<button class="btn btn-primary">Primary Action</button>
+<button class="btn btn-outline-secondary">Outline Action</button>
+<span class="badge bg-warning text-dark">Pending</span>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <div style="background:#dcfce7; border:1px solid #86efac; color:#15803d; padding:10px 14px; border-radius:6px; margin-bottom:12px; font-size:0.85rem;">
+                            ✅ <strong>Alert:</strong> Bootstrap notification banner ready!
+                        </div>
+                        <div style="display:flex; gap:8px; align-items:center;">
+                            <button style="background:#7952b3; color:#fff; border:none; padding:6px 14px; border-radius:4px; font-weight:600; font-size:0.85rem;">btn-primary</button>
+                            <span style="background:#fef08a; color:#854d0e; padding:4px 8px; border-radius:10px; font-size:0.75rem; font-weight:700;">badge</span>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day3/index.html"
+                },
+                {
+                    day: 4,
+                    title: "Bootstrap Cards, Navbars & Navigation Menus",
+                    description: "Construct modern website components using .card (.card-body, .card-header, .card-footer, .card-img-top), and responsive .navbar with toggler collapse for mobile menus.",
+                    keyPoints: [
+                        { title: ".card", desc: "Flexible container for images, headers, text, and buttons." },
+                        { title: ".navbar-expand-*", desc: "Controls breakpoint where mobile hamburger menu expands." },
+                        { title: ".nav and .nav-pills", desc: "Creates tabbed or pill navigation link groups." }
+                    ],
+                    code: `<div class="card shadow-sm" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">Bootstrap Card</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+        <p class="card-text">Modular card content with actions and typography.</p>
+        <a href="#" class="btn btn-sm btn-primary">Explore</a>
+    </div>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#f8fafc; display:flex; justify-content:center;">
+                        <div style="width:240px; background:#ffffff; border:1px solid #e2e8f0; border-radius:8px; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+                            <h4 style="margin:0 0 6px 0; color:#1e293b;">Bootstrap Card</h4>
+                            <p style="margin:0 0 12px 0; font-size:0.8rem; color:#64748b;">Clean card UI with built-in spacing and buttons.</p>
+                            <button style="background:#7952b3; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-size:0.8rem; font-weight:600;">Card Action</button>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day4/task1.html"
+                },
+                {
+                    day: 5,
+                    title: "Bootstrap Forms, Form Controls & Floating Labels",
+                    description: "Design structured user forms using .form-control, .form-select, .form-check (checkboxes & radios), input groups (.input-group), and modern .form-floating labels.",
+                    keyPoints: [
+                        { title: ".form-control", desc: "Applies unified padding, border-radius, and focus glow." },
+                        { title: ".form-floating", desc: "Animates label into top corner when input is focused or filled." },
+                        { title: ".input-group", desc: "Attaches icons, prefixes (@), or button addons to inputs." }
+                    ],
+                    code: `<form>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+    </div>
+    <button class="btn btn-primary w-100" type="submit">Sign In</button>
+</form>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#7952b3; margin-top:0;">Bootstrap Floating Inputs</h4>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            <input type="text" placeholder="Email Address" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+                            <input type="password" placeholder="Password" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+                            <button style="background:#7952b3; color:#fff; border:none; padding:8px; border-radius:6px; font-weight:600; cursor:pointer;">Submit</button>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day4/task2.html"
+                },
+                {
+                    day: 6,
+                    title: "Bootstrap Tables & List Group Components",
+                    description: "Format responsive data tables with .table, .table-striped, .table-hover, .table-bordered, .table-dark, and organized .list-group items with active states.",
+                    keyPoints: [
+                        { title: ".table-striped", desc: "Adds zebra-striping to table rows for effortless readability." },
+                        { title: ".table-hover", desc: "Adds smooth hover highlight row on cursor movement." },
+                        { title: ".table-responsive", desc: "Wraps table in horizontal scrollbar on small screens." }
+                    ],
+                    code: `<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Course</th>
+                <th>Instructor</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Fullstack Development</td>
+                <td>Abiseik</td>
+                <td><span class="badge bg-success">Active</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#ffffff; border-radius:8px;">
+                        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+                            <thead>
+                                <tr style="background:#1e293b; color:#fff;">
+                                    <th style="padding:8px 10px; text-align:left;">Topic</th>
+                                    <th style="padding:8px 10px; text-align:left;">Module</th>
+                                    <th style="padding:8px 10px; text-align:left;">Progress</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background:#f8fafc; border-bottom:1px solid #e2e8f0;">
+                                    <td style="padding:8px 10px; font-weight:600;">Bootstrap</td>
+                                    <td style="padding:8px 10px;">Components</td>
+                                    <td style="padding:8px 10px; color:#16a34a; font-weight:700;">100%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day4/task3.html"
+                },
+                {
+                    day: 7,
+                    title: "Bootstrap Modals, Offcanvas & Dropdowns",
+                    description: "Implement interactive JavaScript-powered dialogs using Bootstrap .modal, slide-in sidebars with .offcanvas, and action menus with .dropdown and .dropdown-menu.",
+                    keyPoints: [
+                        { title: "data-bs-toggle='modal'", desc: "Declarative HTML attribute trigger without writing JS code." },
+                        { title: ".offcanvas", desc: "Smooth slide-in drawer for mobile menus or cart drawers." },
+                        { title: ".dropdown", desc: "Contextual menu for sub-actions and navigation choices." }
+                    ],
+                    code: `<!-- Modal Trigger Button -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch Demo Modal
+</button>
+
+<!-- Modal Structure -->
+<div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bootstrap Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">Modal dialog interactive content.</div>
+        </div>
+    </div>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:20px; background:#ffffff; text-align:center; border-radius:8px;">
+                        <button style="background:#7952b3; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">
+                            Trigger Bootstrap Modal 🪟
+                        </button>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day4/task4.html"
+                },
+                {
+                    day: 8,
+                    title: "Bootstrap Carousel & Accordion Components",
+                    description: "Build slideshows using .carousel (.carousel-inner, .carousel-item, .carousel-indicators) and collapsible content accordions with .accordion and .accordion-item.",
+                    keyPoints: [
+                        { title: ".carousel", desc: "Automated or swipeable image/content slideshow." },
+                        { title: ".accordion", desc: "Expands one question while collapsing others automatically." },
+                        { title: "data-bs-interval", desc: "Controls slide transition duration in milliseconds." }
+                    ],
+                    code: `<div class="accordion" id="faqAccordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                What is Bootstrap?
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                Bootstrap is a popular HTML, CSS, and JS frontend toolkit.
+            </div>
+        </div>
+    </div>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#ffffff; border-radius:8px;">
+                        <div style="border:1px solid #7952b3; border-radius:6px; overflow:hidden;">
+                            <div style="background:#f3e8ff; color:#6b21a8; padding:10px 14px; font-weight:700; font-size:0.85rem;">
+                                ▾ What is Bootstrap Framework?
+                            </div>
+                            <div style="padding:10px 14px; font-size:0.8rem; color:#475569;">
+                                A complete CSS framework providing mobile-first grids, typography, and UI widgets.
+                            </div>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day4/task5.html"
+                },
+                {
+                    day: 9,
+                    title: "Bootstrap Spacing, Flexbox & Sizing Utilities",
+                    description: "Speed up styling with utility classes: margins/padding (.m-*, .p-*, .mx-auto), flex helpers (.d-flex, .justify-content-between, .align-items-center), and width/height (.w-100, .h-100).",
+                    keyPoints: [
+                        { title: "Spacing Scale", desc: "0 to 5 utility values map to rem multipliers (0 to 3rem)." },
+                        { title: "d-flex utilities", desc: "Applies flexbox properties inline without custom CSS rules." },
+                        { title: "mx-auto", desc: "Horizontally centers block elements instantly." }
+                    ],
+                    code: `<div class="d-flex justify-content-between align-items-center p-3 my-2 bg-light rounded shadow-sm">
+    <div class="fw-bold text-primary">Responsive Flex Row</div>
+    <span class="badge bg-secondary">Utility Class</span>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#f8fafc; border-radius:8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; background:#ffffff; padding:12px; border:1px solid #e2e8f0; border-radius:6px;">
+                            <span style="font-weight:700; color:#7952b3;">d-flex & justify-content</span>
+                            <span style="background:#e2e8f0; color:#334155; padding:2px 8px; border-radius:4px; font-size:0.75rem;">Utility Powered</span>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day1/bootstrap.html"
+                },
+                {
+                    day: 10,
+                    title: "Bootstrap Tooltips, Popovers & Toast Alerts",
+                    description: "Implement micro-interactions with Bootstrap Tooltips (hover notes), Popovers (rich info popups), and Toast notification banners (.toast, .toast-header, .toast-body).",
+                    keyPoints: [
+                        { title: "Bootstrap Toasts", desc: "Lightweight popup alerts for async action feedback." },
+                        { title: "Popper.js Integration", desc: "Calculates smart edge detection for tooltips and popovers." },
+                        { title: "JS Initialization", desc: "Tooltips require new bootstrap.Tooltip(el) initialization." }
+                    ],
+                    code: `<div class="toast show" role="alert">
+    <div class="toast-header">
+        <strong class="me-auto text-primary">System Notification</strong>
+        <small>Just now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body">
+        Bootstrap toast notification triggered successfully!
+    </div>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#ffffff; border-radius:8px;">
+                        <div style="border:1px solid #cbd5e1; border-radius:6px; box-shadow:0 4px 12px rgba(0,0,0,0.08); overflow:hidden;">
+                            <div style="background:#f1f5f9; padding:6px 12px; font-size:0.75rem; font-weight:700; color:#7952b3; display:flex; justify-content:space-between;">
+                                <span>🔔 Notification Toast</span>
+                                <span>1m ago</span>
+                            </div>
+                            <div style="padding:10px 12px; font-size:0.8rem; color:#334155;">
+                                Task updated in local storage!
+                            </div>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day3/index.html"
+                },
+                {
+                    day: 11,
+                    title: "Bootstrap Admin Dashboard & Analytics Grid",
+                    description: "Combine Bootstrap components to construct an administrative dashboard layout with sidebar navigation, metric stat cards, and analytical charts.",
+                    keyPoints: [
+                        { title: "Dashboard Architecture", desc: "Fixed sidebar with fluid content area grid." },
+                        { title: "Metric Cards", desc: "Showcases Key Performance Indicators (KPIs) with badges." },
+                        { title: "Responsive Collapsing", desc: "Sidebar toggles into an offcanvas drawer on mobile." }
+                    ],
+                    code: `<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 bg-dark text-white p-3 min-vh-100">
+            <h5>Admin Portal</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item"><a href="#" class="nav-link text-white active">Dashboard</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-white-50">Reports</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9 p-4">
+            <h2>Analytics Overview</h2>
+        </div>
+    </div>
+</div>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:16px; background:#f8fafc; border-radius:8px;">
+                        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;">
+                            <div style="background:#ffffff; padding:12px; border-radius:6px; border-left:4px solid #7952b3; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
+                                <div style="font-size:0.75rem; color:#64748b;">Total Students</div>
+                                <div style="font-size:1.2rem; font-weight:700; color:#0f172a;">1,420</div>
+                            </div>
+                            <div style="background:#ffffff; padding:12px; border-radius:6px; border-left:4px solid #10b981; box-shadow:0 2px 6px rgba(0,0,0,0.05);">
+                                <div style="font-size:0.75rem; color:#64748b;">Completed Tasks</div>
+                                <div style="font-size:1.2rem; font-weight:700; color:#0f172a;">94.8%</div>
+                            </div>
+                        </div>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day4/task1.html"
+                },
+                {
+                    day: 12,
+                    title: "Bootstrap Complete Landing Page & Hero Section",
+                    description: "Assemble a production-ready landing page featuring a sticky navbar, hero header with call-to-actions, feature matrix, testimonials carousel, and footer.",
+                    keyPoints: [
+                        { title: "Hero Section", desc: "Bold headline, descriptive paragraph, and primary action buttons." },
+                        { title: "Feature Cards", desc: "3-column grid highlighting key benefits and services." },
+                        { title: "Clean Semantic Footer", desc: "Copyright notices, social links, and privacy policy links." }
+                    ],
+                    code: `<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Modern Web Application</h1>
+            <p class="lead text-muted">Build scalable responsive web pages with clean Bootstrap 5 framework utilities and components.</p>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Get Started Free</a>
+                <a href="#" class="btn btn-outline-secondary my-2">Documentation</a>
+            </p>
+        </div>
+    </div>
+</section>`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:24px 16px; background:#ffffff; text-align:center; border-radius:8px; border:1px solid #e2e8f0;">
+                        <h3 style="margin:0 0 8px 0; color:#0f172a;">Launch Your Product 🚀</h3>
+                        <p style="color:#64748b; font-size:0.85rem; max-width:320px; margin:0 auto 12px auto;">Fast, reliable, and beautifully styled with Bootstrap 5 components.</p>
+                        <button style="background:#7952b3; color:#fff; border:none; padding:8px 18px; border-radius:6px; font-weight:600; cursor:pointer;">Start Learning</button>
+                    </div>`,
+                    workspaceFile: "Bootstrap/day1/bootstrap.html"
+                }
+            ],
+            javascript: [
+                {
+                    day: 1,
+                    title: "JavaScript Basics, Script Tags & Console Methods",
+                    description: "Get started with JavaScript: adding <script> tags, internal vs external scripts, console methods (console.log, console.warn, console.error, console.table), and single/multi-line comments.",
+                    keyPoints: [
+                        { title: "console.log()", desc: "Outputs debugging logs directly into Developer Tools Console." },
+                        { title: "Script Placement", desc: "Placed at end of <body> to ensure HTML parsing finishes first." },
+                        { title: "Client-side Execution", desc: "Runs directly in the user's browser engine." }
+                    ],
+                    code: `// Day 1: JavaScript Basics
+console.log("Hello from JavaScript!");
+console.warn("This is a warning message");
+console.error("This is an error message");
+
+// Interactive Greeting Function
+function greetStudent(name) {
+    return "Welcome to JavaScript, " + name + "!";
+}
+
+console.log(greetStudent("Abiseik"));`,
+                    previewHtml: `<div style="font-family:monospace; padding:18px; background:#1e1e1e; color:#4ec9b0; border-radius:8px;">
+                        <span style="color:#6a9955;">// JavaScript Console Output Simulator</span><br>
+                        <span style="color:#ce9178;">"Hello from JavaScript!"</span><br>
+                        <span style="color:#dcdcaa;">greetStudent</span>(<span style="color:#ce9178;">"Abiseik"</span>) &rarr; <span style="color:#ce9178;">"Welcome to JavaScript, Abiseik!"</span>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 2,
+                    title: "Variables (var, let, const) & Primitive Data Types",
+                    description: "Learn variable declarations (var, let, const), block scope vs function scope, variable hoisting, and primitive data types (String, Number, Boolean, Null, Undefined, BigInt, Symbol).",
+                    keyPoints: [
+                        { title: "const vs let", desc: "Use const by default; let only when variables will be reassigned." },
+                        { title: "Block Scoping", desc: "let and const are scoped within curly braces {}; var is not." },
+                        { title: "typeof Operator", desc: "Returns runtime data type of any variable or expression." }
+                    ],
+                    code: `// Modern Variable Declarations
+const studentName = "Abiseik Moorthy"; // String
+let currentYear = 4;                 // Number
+let isEnrolled = true;               // Boolean
+let graduatedAt = null;              // Null (Intentional empty value)
+let futureGoal;                      // Undefined
+
+console.log(typeof studentName); // "string"
+console.log(typeof currentYear); // "number"
+console.log(typeof isEnrolled);  // "boolean"`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#d97706; margin-top:0;">Variable Inspection (let & const)</h4>
+                        <div style="background:#fffbeb; border-left:4px solid #f59e0b; padding:10px 14px; font-size:0.85rem; color:#92400e; font-family:monospace;">
+                            student: "Abiseik Moorthy" (string)<br>
+                            year: 4 (number)<br>
+                            enrolled: true (boolean)
+                        </div>
+                    </div>`,
+                    workspaceFile: "javascript/day2/variables.txt"
+                },
+                {
+                    day: 3,
+                    title: "Operators & Conditionals (if, else if, switch, ternary)",
+                    description: "Execute control flow using comparison operators (===, !==, >, <), logical operators (&&, ||, !), if/else if/else branches, switch cases, and ternary conditional expressions.",
+                    keyPoints: [
+                        { title: "Strict Equality (===)", desc: "Compares both value and data type without type coercion." },
+                        { title: "Ternary Operator", desc: "Compact one-line conditional: condition ? valIfTrue : valIfFalse." },
+                        { title: "Switch Statement", desc: "Clean branch handling for matching multiple discrete values." }
+                    ],
+                    code: `const score = 85;
+
+// Conditional Grading
+let grade;
+if (score >= 90) {
+    grade = "A+";
+} else if (score >= 80) {
+    grade = "A";
+} else if (score >= 70) {
+    grade = "B";
+} else {
+    grade = "C";
+}
+
+// Ternary Operator
+const status = score >= 50 ? "Passed" : "Failed";
+console.log(\`Score: \${score}, Grade: \${grade}, Status: \${status}\`);`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#f8fafc; border-radius:8px; text-align:center;">
+                        <h4 style="color:#d97706; margin:0 0 8px 0;">Grading Conditional System</h4>
+                        <div style="display:inline-block; background:#10b981; color:#fff; font-weight:700; font-size:1.1rem; padding:8px 18px; border-radius:8px;">
+                            Score: 85 &rarr; Grade: A (Passed)
+                        </div>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 4,
+                    title: "Loops & Iterations (for, while, do-while, for...of)",
+                    description: "Automate repetitive tasks using loops: standard for loops, while loops, do-while loops, for...of (iterating arrays/strings), and loop control statements (break, continue).",
+                    keyPoints: [
+                        { title: "Standard for loop", desc: "Initialized counter, condition check, and incrementer." },
+                        { title: "for...of loop", desc: "Clean modern syntax to iterate through array values directly." },
+                        { title: "break / continue", desc: "Terminates loop immediately or skips to next iteration." }
+                    ],
+                    code: `const subjects = ["HTML", "CSS", "Bootstrap", "JavaScript"];
+
+// Iteration using for...of
+for (const subject of subjects) {
+    console.log("Learning: " + subject);
+}
+
+// Traditional for loop (Counting 1 to 5)
+let total = 0;
+for (let i = 1; i <= 5; i++) {
+    total += i;
+}
+console.log("Sum 1..5 is: " + total); // 15`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#d97706; margin-top:0;">Loop Iteration Results</h4>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <span style="background:#fef3c7; color:#92400e; padding:4px 10px; border-radius:6px; font-size:0.8rem; font-weight:600;">Day 1 &bull; HTML</span>
+                            <span style="background:#fef3c7; color:#92400e; padding:4px 10px; border-radius:6px; font-size:0.8rem; font-weight:600;">Day 2 &bull; CSS</span>
+                            <span style="background:#fef3c7; color:#92400e; padding:4px 10px; border-radius:6px; font-size:0.8rem; font-weight:600;">Day 3 &bull; Bootstrap</span>
+                            <span style="background:#fef3c7; color:#92400e; padding:4px 10px; border-radius:6px; font-size:0.8rem; font-weight:600;">Day 4 &bull; JavaScript</span>
+                        </div>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 5,
+                    title: "Functions, Parameters, Arrow Functions & Scope",
+                    description: "Structure modular code using function declarations, function expressions, ES6 Arrow Functions (() => {}), default parameters, rest parameters (...args), and closures.",
+                    keyPoints: [
+                        { title: "Arrow Functions", desc: "Concise syntax with lexical 'this' binding." },
+                        { title: "Default Parameters", desc: "Provides fallback values if arguments are omitted." },
+                        { title: "Lexical Scope", desc: "Inner functions have access to variables in outer parent scopes." }
+                    ],
+                    code: `// Traditional Function Declaration
+function calculateArea(width, height = 10) {
+    return width * height;
+}
+
+// ES6 Concise Arrow Function
+const calculateDiscount = (price, discountPercent = 10) => 
+    price - (price * (discountPercent / 100));
+
+console.log("Area: " + calculateArea(5, 4)); // 20
+console.log("Price after discount: ₹" + calculateDiscount(1000, 15)); // ₹850`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#0f172a; color:#f8fafc; border-radius:8px;">
+                        <h4 style="color:#fbbf24; margin:0 0 6px 0;">⚡ ES6 Arrow Function Execution</h4>
+                        <div style="font-family:monospace; background:#1e293b; padding:10px 14px; border-radius:6px; font-size:0.85rem; color:#34d399;">
+                            calculateDiscount(1000, 15) &rarr; ₹850
+                        </div>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 6,
+                    title: "Arrays & High-Order Array Methods (map, filter, reduce)",
+                    description: "Manipulate data collections using array mutations (push, pop, shift, unshift, splice) and functional high-order methods (map, filter, reduce, find, some, every).",
+                    keyPoints: [
+                        { title: "array.map()", desc: "Transforms every item into a new array without mutating original." },
+                        { title: "array.filter()", desc: "Returns subset of elements matching boolean test condition." },
+                        { title: "array.reduce()", desc: "Accumulates array values into a single summary output." }
+                    ],
+                    code: `const scores = [65, 82, 90, 45, 78, 95];
+
+// 1. Filter passing scores (>= 70)
+const passingScores = scores.filter(score => score >= 70);
+
+// 2. Map into grade labels
+const gradeLabels = passingScores.map(score => \`Score: \${score}\`);
+
+// 3. Calculate average score using reduce
+const totalScore = scores.reduce((sum, score) => sum + score, 0);
+const average = (totalScore / scores.length).toFixed(1);
+
+console.log("Passing Scores:", passingScores);
+console.log("Class Average:", average);`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#d97706; margin-top:0;">Array Data Transformations</h4>
+                        <p style="font-size:0.85rem; color:#475569; margin:0 0 6px 0;"><strong>Original:</strong> [65, 82, 90, 45, 78, 95]</p>
+                        <p style="font-size:0.85rem; color:#15803d; margin:0 0 6px 0;"><strong>Filtered (&ge;70):</strong> [82, 90, 78, 95]</p>
+                        <p style="font-size:0.85rem; color:#d97706; margin:0;"><strong>Average Score:</strong> 75.8</p>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 7,
+                    title: "Objects, Object Methods, 'this' & Destructuring",
+                    description: "Model entities using JavaScript Objects, key-value pairs, nested properties, methods, Object.keys(), Object.values(), object destructuring, and spread operator ({...obj}).",
+                    keyPoints: [
+                        { title: "Object Destructuring", desc: "const { name, role } = user cleanly extracts properties." },
+                        { title: "Object Spread ({...})", desc: "Clones or merges multiple objects without mutation." },
+                        { title: "Methods & 'this'", desc: "Functions inside objects referencing internal properties via this." }
+                    ],
+                    code: `const student = {
+    name: "Abiseik Moorthy",
+    course: "Frontend Web Development",
+    progress: 80,
+    skills: ["HTML", "CSS", "Bootstrap", "JS"],
+    getSummary() {
+        return \`\${this.name} has completed \${this.progress}% of \${this.course}.\`;
+    }
+};
+
+// Destructuring
+const { name, progress, skills } = student;
+console.log(student.getSummary());`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#fffbeb; border-radius:8px; border:1px solid #fde68a;">
+                        <h4 style="color:#92400e; margin:0 0 6px 0;">👤 Student Object Entity</h4>
+                        <p style="margin:0; font-size:0.85rem; color:#78350f;"><strong>Name:</strong> Abiseik Moorthy</p>
+                        <p style="margin:0; font-size:0.85rem; color:#78350f;"><strong>Progress:</strong> 80% Complete</p>
+                        <p style="margin:0; font-size:0.85rem; color:#78350f;"><strong>Skills:</strong> HTML5, CSS3, Bootstrap, JS</p>
+                    </div>`,
+                    workspaceFile: "javascript/day2/variables.txt"
+                },
+                {
+                    day: 8,
+                    title: "DOM Selection & Content Manipulation",
+                    description: "Select and manipulate live HTML elements using document.getElementById, document.querySelector, querySelectorAll, innerHTML, textContent, style, and classList.",
+                    keyPoints: [
+                        { title: "querySelector()", desc: "Finds element using any standard CSS selector string." },
+                        { title: "classList.add/toggle", desc: "Adds or removes CSS classes dynamically for styling." },
+                        { title: "textContent vs innerHTML", desc: "textContent is faster and immune to XSS injection." }
+                    ],
+                    code: `// 1. Select element
+const titleElement = document.querySelector("#dashboard-heading");
+
+// 2. Modify text and styles
+titleElement.textContent = "Dynamic JavaScript Dashboard";
+titleElement.style.color = "#f59e0b";
+
+// 3. Toggle CSS class
+titleElement.classList.add("active-highlight");`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px; text-align:center;">
+                        <h4 id="interactiveDomTitle" style="color:#d97706; margin-top:0;">Dynamic DOM Title</h4>
+                        <button onclick="document.getElementById('interactiveDomTitle').textContent = '✅ DOM Manipulated!'" style="background:#f59e0b; color:#fff; border:none; padding:6px 14px; border-radius:6px; font-weight:600; cursor:pointer;">
+                            Click to Mutate DOM
+                        </button>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 9,
+                    title: "DOM Event Listeners & Interactive Handlers",
+                    description: "Capture user interactions with addEventListener(): click, input, keydown, submit, change, mouseover, along with Event Object (event.target, event.preventDefault()).",
+                    keyPoints: [
+                        { title: "addEventListener()", desc: "Attaches event handlers cleanly without polluting HTML attributes." },
+                        { title: "event.preventDefault()", desc: "Stops default browser behavior like page reload on form submit." },
+                        { title: "Event Bubbling", desc: "Events bubble up through parent hierarchy allowing event delegation." }
+                    ],
+                    code: `const clickButton = document.querySelector("#actionBtn");
+const outputDiv = document.querySelector("#logArea");
+
+clickButton.addEventListener("click", function(event) {
+    console.log("Clicked at coordinate:", event.clientX, event.clientY);
+    outputDiv.textContent = "Button was clicked at: " + new Date().toLocaleTimeString();
+});`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#f8fafc; border-radius:8px; text-align:center;">
+                        <button id="demoClickBtn" onclick="document.getElementById('demoEventCount').innerText = parseInt(document.getElementById('demoEventCount').innerText) + 1" style="background:#d97706; color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:600; cursor:pointer;">
+                            Click Counter: <span id="demoEventCount">0</span>
+                        </button>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 10,
+                    title: "Client-Side Form Validation & Regular Expressions",
+                    description: "Build robust form validation with JavaScript: verifying required fields, email regex patterns, password strength validators, displaying inline errors, and submit blocking.",
+                    keyPoints: [
+                        { title: "Regex Pattern Testing", desc: "regex.test(email) verifies correct email formatting." },
+                        { title: "Real-time Feedback", desc: "input event provides instant feedback as the user types." },
+                        { title: "UX Error Handling", desc: "Shows specific, helpful error messages next to fields." }
+                    ],
+                    code: `function validateEmail(email) {
+    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    const emailInput = document.querySelector("#emailField").value;
+    
+    if (!validateEmail(emailInput)) {
+        alert("Please provide a valid email address!");
+        return false;
+    }
+    alert("Form submitted successfully!");
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#d97706; margin-top:0;">Live Regex Validator</h4>
+                        <input type="text" id="demoEmailInput" placeholder="Type email address..." oninput="this.style.borderColor = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(this.value) ? '#22c55e' : '#ef4444'" style="width:90%; padding:8px 12px; border:2px solid #cbd5e1; border-radius:6px; outline:none;">
+                        <small style="display:block; margin-top:4px; color:#64748b;">Border turns green when valid pattern matches.</small>
+                    </div>`,
+                    workspaceFile: "HTML/day8/Registrationfrom.html"
+                },
+                {
+                    day: 11,
+                    title: "Asynchronous JavaScript (Promises, async/await, Fetch API)",
+                    description: "Master asynchronous JavaScript: understanding the Event Loop, Promises (.then, .catch, .finally), async/await syntax, and fetching JSON data from REST APIs.",
+                    keyPoints: [
+                        { title: "async / await", desc: "Syntactic sugar that writes asynchronous code like synchronous code." },
+                        { title: "Fetch API", desc: "Native browser method to make HTTP GET/POST network requests." },
+                        { title: "try...catch", desc: "Captures and handles network failures gracefully." }
+                    ],
+                    code: `// Fetching Data Asynchronously
+async function fetchGithubUser(username) {
+    try {
+        const response = await fetch(\`https://api.github.com/users/\${username}\`);
+        if (!response.ok) {
+            throw new Error("User not found");
+        }
+        const data = await response.json();
+        console.log("GitHub Profile:", data.name, data.public_repos);
+        return data;
+    } catch (error) {
+        console.error("Fetch Error:", error.message);
+    }
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#0f172a; color:#f8fafc; border-radius:8px;">
+                        <h4 style="color:#fbbf24; margin:0 0 6px 0;">🌐 Async Network Simulation</h4>
+                        <div style="background:#1e293b; padding:10px 14px; border-radius:6px; font-family:monospace; font-size:0.8rem; color:#60a5fa;">
+                            status: 200 OK<br>
+                            payload: { "student": "Abiseik", "status": "Ready" }
+                        </div>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                },
+                {
+                    day: 12,
+                    title: "Interactive Mini App with LocalStorage Persistence",
+                    description: "Synthesize all JavaScript concepts to build a full CRUD mini application with DOM manipulation, event handling, and persistent data storage using localStorage.",
+                    keyPoints: [
+                        { title: "localStorage.setItem()", desc: "Persists key-value string data in browser storage." },
+                        { title: "JSON.stringify / parse", desc: "Serializes JS objects into JSON strings and back." },
+                        { title: "State-driven Rendering", desc: "Updates DOM automatically whenever state data changes." }
+                    ],
+                    code: `// Save Task to LocalStorage
+function saveTask(taskTitle) {
+    const tasks = JSON.parse(localStorage.getItem("myTasks") || "[]");
+    tasks.push({ title: taskTitle, done: false, date: new Date().toISOString() });
+    localStorage.setItem("myTasks", JSON.stringify(tasks));
+}
+
+// Retrieve Tasks
+function getTasks() {
+    return JSON.parse(localStorage.getItem("myTasks") || "[]");
+}`,
+                    previewHtml: `<div style="font-family:sans-serif; padding:18px; background:#ffffff; border-radius:8px;">
+                        <h4 style="color:#d97706; margin-top:0;">📝 LocalStorage Mini Task App</h4>
+                        <div style="display:flex; gap:6px; margin-bottom:8px;">
+                            <input type="text" id="demoMiniTask" placeholder="New learning item..." style="flex:1; padding:6px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:0.85rem;">
+                            <button onclick="if(document.getElementById('demoMiniTask').value){ document.getElementById('demoTaskList').innerHTML += '<li>' + document.getElementById('demoMiniTask').value + '</li>'; document.getElementById('demoMiniTask').value = ''; }" style="background:#f59e0b; color:#fff; border:none; padding:6px 12px; border-radius:4px; font-weight:600; cursor:pointer;">Add</button>
+                        </div>
+                        <ul id="demoTaskList" style="margin:0; padding-left:20px; font-size:0.85rem; color:#334155;">
+                            <li>Mastered HTML5 & CSS3 layouts</li>
+                        </ul>
+                    </div>`,
+                    workspaceFile: "javascript/day1/script.js"
+                }
+            ]
+        };
+
+        // State Management
+        let currentActiveTopic = 'html';
+        let currentActiveDay = 1;
+        let activeTab = 'preview';
+        let completedTasks = JSON.parse(localStorage.getItem('learning_dashboard_completed') || '{}');
+
+        /**
+         * Initialize Dashboard
+         */
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAllColumns();
+            updateStatistics();
+            setupKeyboardNavigation();
+        });
+
+        /**
+         * Render All 4 Columns (HTML, CSS, Bootstrap, JavaScript) - 12 Days each
+         */
+        function renderAllColumns() {
+            const topics = ['html', 'css', 'bootstrap', 'javascript'];
+            topics.forEach(topic => {
+                const listContainer = document.getElementById(`list-${topic}`);
+                if (!listContainer) return;
+                
+                listContainer.innerHTML = '';
+                const days = learningData[topic] || [];
+
+                days.forEach(item => {
+                    const taskKey = `${topic}_day_${item.day}`;
+                    const isCompleted = !!completedTasks[taskKey];
+                    
+                    const card = document.createElement('div');
+                    card.className = `day-card ${isCompleted ? 'completed' : ''}`;
+                    card.id = `card-${topic}-${item.day}`;
+                    card.setAttribute('tabindex', '0');
+                    card.onclick = () => openTaskModal(topic, item.day);
+                    card.onkeydown = (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openTaskModal(topic, item.day);
+                        }
+                    };
+
+                    const dayFormatted = item.day < 10 ? `Day 0${item.day}` : `Day ${item.day}`;
+                    const fileTagDisplay = item.workspaceFile ? item.workspaceFile.split('/').pop() : 'interactive';
+
+                    card.innerHTML = `
+                        <div class="day-header-row">
+                            <span class="day-pill">${dayFormatted}</span>
+                            <span class="day-status-icon">${isCompleted ? '✅' : '⚪'}</span>
+                        </div>
+                        <div class="day-title">${item.title}</div>
+                        <div class="day-snippet">${item.description}</div>
+                        <div class="day-footer-row">
+                            <span class="file-tag">📄 ${fileTagDisplay}</span>
+                            <span class="view-action">View Details →</span>
+                        </div>
+                    `;
+                    listContainer.appendChild(card);
+                });
+            });
+        }
+
+        /**
+         * Open Task Detail Modal & Display Task Info
+         */
+        function openTaskModal(topic, day) {
+            currentActiveTopic = topic;
+            currentActiveDay = day;
+
+            const topicData = learningData[topic];
+            if (!topicData) return;
+            const task = topicData.find(t => t.day === day);
+            if (!task) return;
+
+            // Highlight selected card in column
+            document.querySelectorAll('.day-card').forEach(c => c.classList.remove('selected'));
+            const activeCard = document.getElementById(`card-${topic}-${day}`);
+            if (activeCard) activeCard.classList.add('selected');
+
+            // Set Header Information
+            const modalTopicBadge = document.getElementById('modalTopicBadge');
+            modalTopicBadge.textContent = topic.toUpperCase();
+            
+            const topicColors = {
+                html: 'var(--topic-html-gradient)',
+                css: 'var(--topic-css-gradient)',
+                bootstrap: 'var(--topic-bootstrap-gradient)',
+                javascript: 'var(--topic-js-gradient)'
+            };
+            modalTopicBadge.style.background = topicColors[topic] || '#6366f1';
+            if (topic === 'javascript') {
+                modalTopicBadge.style.color = '#1e1e1e';
+            } else {
+                modalTopicBadge.style.color = '#ffffff';
+            }
+
+            document.getElementById('modalDayBadge').textContent = day < 10 ? `Day 0${day}` : `Day ${day}`;
+            document.getElementById('modalTaskTitle').textContent = task.title;
+
+            // Update Navigation Buttons (Disable if at boundaries)
+            document.getElementById('btnPrevDay').disabled = (day <= 1);
+            document.getElementById('btnNextDay').disabled = (day >= 12);
+
+            // Populate Overview Tab
+            document.getElementById('overviewDescriptionText').textContent = task.description;
+            const keyPointsGrid = document.getElementById('keyPointsGrid');
+            keyPointsGrid.innerHTML = '';
+            if (task.keyPoints && task.keyPoints.length > 0) {
+                task.keyPoints.forEach(kp => {
+                    const kpCard = document.createElement('div');
+                    kpCard.className = 'key-point-card';
+                    kpCard.innerHTML = `
+                        <h4>💡 ${kp.title}</h4>
+                        <p>${kp.desc}</p>
+                    `;
+                    keyPointsGrid.appendChild(kpCard);
+                });
+            }
+
+            // Linked Workspace File Handling
+            const workspaceSection = document.getElementById('workspaceLinkSection');
+            const workspacePathEl = document.getElementById('workspaceFilePath');
+            const btnOpenWorkspace = document.getElementById('btnOpenWorkspaceFile');
+            
+            if (task.workspaceFile) {
+                workspaceSection.style.display = 'flex';
+                workspacePathEl.textContent = task.workspaceFile;
+                btnOpenWorkspace.href = task.workspaceFile;
+            } else {
+                workspaceSection.style.display = 'none';
+            }
+
+            // Populate Code Tab
+            document.getElementById('codeLangLabel').textContent = `${topic.toUpperCase()} • Code Snippet (Day ${day})`;
+            document.getElementById('codeBlockDisplay').textContent = task.code;
+
+            // Render Preview Sandbox
+            renderPreviewSandbox(task);
+
+            // Populate Checkbox Completion State
+            const taskKey = `${topic}_day_${day}`;
+            document.getElementById('taskCompleteCheckbox').checked = !!completedTasks[taskKey];
+
+            // Open Modal with Backdrop
+            const backdrop = document.getElementById('taskModalBackdrop');
+            backdrop.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        /**
+         * Render Code in Isolated Iframe Sandbox
+         */
+        function renderPreviewSandbox(task) {
+            const iframe = document.getElementById('previewIframe');
+            document.getElementById('previewUrlBar').textContent = `sandbox://${currentActiveTopic}/day-${currentActiveDay}`;
+
+            let contentHtml = task.previewHtml || '';
+
+            // If it's Bootstrap topic, include Bootstrap 5 CDN inside preview
+            let additionalHead = '';
+            if (currentActiveTopic === 'bootstrap') {
+                additionalHead = `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">`;
+            }
+
+            const fullHtmlDoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    ${additionalHead}
+                    <style>
+                        body {
+                            margin: 0;
+                            padding: 16px;
+                            box-sizing: border-box;
+                            background: #ffffff;
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                            color: #1e293b;
+                        }
+                    </style>
+                </head>
+                <body>
+                    ${contentHtml}
+                </body>
+                </html>
+            `;
+
+            iframe.srcdoc = fullHtmlDoc;
+        }
+
+        /**
+         * Reload current iframe preview
+         */
+        function reloadPreviewIframe() {
+            const topicData = learningData[currentActiveTopic];
+            if (!topicData) return;
+            const task = topicData.find(t => t.day === currentActiveDay);
+            if (task) {
+                renderPreviewSandbox(task);
+                showToast("Preview reloaded!");
+            }
+        }
+
+        /**
+         * Switch between Modal Tabs (preview, code, overview)
+         */
+        function switchModalTab(tabName) {
+            activeTab = tabName;
+            
+            // Buttons
+            document.getElementById('tabBtnPreview').classList.toggle('active', tabName === 'preview');
+            document.getElementById('tabBtnCode').classList.toggle('active', tabName === 'code');
+            document.getElementById('tabBtnOverview').classList.toggle('active', tabName === 'overview');
+
+            // Panes
+            document.getElementById('panePreview').classList.toggle('active', tabName === 'preview');
+            document.getElementById('paneCode').classList.toggle('active', tabName === 'code');
+            document.getElementById('paneOverview').classList.toggle('active', tabName === 'overview');
+        }
+
+        /**
+         * Navigate Next / Prev Day
+         */
+        function navigateDay(offset) {
+            const newDay = currentActiveDay + offset;
+            if (newDay >= 1 && newDay <= 12) {
+                openTaskModal(currentActiveTopic, newDay);
+            }
+        }
+
+        /**
+         * Close Modal
+         */
+        function closeTaskModal() {
+            const backdrop = document.getElementById('taskModalBackdrop');
+            backdrop.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function handleBackdropClick(event) {
+            if (event.target.id === 'taskModalBackdrop') {
+                closeTaskModal();
+            }
+        }
+
+        /**
+         * Copy Active Code to Clipboard
+         */
+        function copyActiveCode() {
+            const codeText = document.getElementById('codeBlockDisplay').textContent;
+            if (!codeText) return;
+
+            navigator.clipboard.writeText(codeText).then(() => {
+                showToast("Code copied to clipboard! 📋");
+            }).catch(() => {
+                showToast("Failed to copy code.");
+            });
+        }
+
+        /**
+         * Toggle Task Completion and Persist in localStorage
+         */
+        function toggleTaskCompletion() {
+            const taskKey = `${currentActiveTopic}_day_${currentActiveDay}`;
+            const isChecked = document.getElementById('taskCompleteCheckbox').checked;
+
+            if (isChecked) {
+                completedTasks[taskKey] = true;
+                showToast(`Day ${currentActiveDay} marked as completed! 🎯`);
+            } else {
+                delete completedTasks[taskKey];
+                showToast(`Day ${currentActiveDay} marked as pending.`);
+            }
+
+            localStorage.setItem('learning_dashboard_completed', JSON.stringify(completedTasks));
+            renderAllColumns();
+            updateStatistics();
+
+            // Re-apply selected state
+            const activeCard = document.getElementById(`card-${currentActiveTopic}-${currentActiveDay}`);
+            if (activeCard) activeCard.classList.add('selected');
+        }
+
+        /**
+         * Update Stats Bar Counter
+         */
+        function updateStatistics() {
+            const completedCount = Object.keys(completedTasks).length;
+            const statText = document.getElementById('stat-completed-count');
+            if (statText) {
+                statText.textContent = `${completedCount} / 48 Completed`;
+            }
+        }
+
+        /**
+         * Search Tasks by keyword across all topics and days
+         */
+        function handleSearch(query) {
+            const term = query.toLowerCase().trim();
+            const cards = document.querySelectorAll('.day-card');
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (!term || text.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /**
+         * Filter Topics (All, HTML, CSS, Bootstrap, JS)
+         */
+        function filterTopic(topic, btnEl) {
+            // Update filter chip active state
+            document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            const columns = {
+                html: document.getElementById('col-html'),
+                css: document.getElementById('col-css'),
+                bootstrap: document.getElementById('col-bootstrap'),
+                javascript: document.getElementById('col-javascript')
+            };
+
+            if (topic === 'all') {
+                Object.values(columns).forEach(col => { if (col) col.style.display = 'flex'; });
+            } else {
+                Object.keys(columns).forEach(key => {
+                    if (columns[key]) {
+                        columns[key].style.display = (key === topic) ? 'flex' : 'none';
+                    }
+                });
+            }
+        }
+
+        /**
+         * Keyboard Shortcuts (Esc to close, Arrow keys to navigate)
+         */
+        function setupKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                const modalOpen = document.getElementById('taskModalBackdrop').classList.contains('open');
+                if (!modalOpen) return;
+
+                if (e.key === 'Escape') {
+                    closeTaskModal();
+                } else if (e.key === 'ArrowLeft') {
+                    navigateDay(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateDay(1);
+                }
+            });
+        }
+
+        /**
+         * Show Notification Toast
+         */
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toastMessage');
+            const toastText = document.getElementById('toastText');
+            toastText.textContent = message;
+            toast.classList.add('show');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

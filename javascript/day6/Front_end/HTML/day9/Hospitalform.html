@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Patient Registration Form</title>
+</head>
+<body>
+
+    <h2>Hospital Patient Registration Form</h2>
+
+    <form>
+
+        <label>Patient Name:</label>
+        <input type="text" name="name">
+        <br><br>
+
+        <label>Age:</label>
+        <input type="number" name="age">
+        <br><br>
+
+        <label>Gender:</label>
+        <input type="radio" name="gender"> Male
+        <input type="radio" name="gender"> Female
+        <br><br>
+
+        <label>Date of Birth:</label>
+        <input type="date" name="dob">
+        <br><br>
+
+        <label>Phone Number:</label>
+        <input type="tel" name="phone"> 
+        <br><br>
+
+        <label>Email:</label>
+        <input type="email" name="email">
+        <br><br>
+
+        <label>Address:</label>
+        <textarea name="address" rows="10" cols="30"></textarea>
+        <br><br>
+
+        <label>Blood Group:</label>
+        <select name="bloodgroup">
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+        </select>
+        <br><br>
+
+        <label>Department:</label>
+        <select name="department">
+            <option>General Medicine</option>
+            <option>Cardiology</option>
+            <option>Orthopedics</option>
+            <option>Neurology</option>
+            <option>Pediatrics</option>
+        </select>
+        <br><br>
+
+        <label>Symptoms:</label>
+        <textarea name="symptoms" rows="3" cols="30"></textarea>
+        <br><br>
+
+        <label>Registration Date:</label>
+        <input type="date" name="regdate">
+        <br><br>
+
+        <input type="submit" value="Register">
+        <input type="reset" value="Clear">
+
+    </form>
+    <table border="3">
+  <thead>
+        <th>patient id</th>
+        <th>patient name</th>
+        <th>blood group</th>
+        <th>doctor</th>
+        <th>appointment date</th>
+        <th>status</th>
+  </thead>
+        <tbody>
+            <tr>
+                <td>6605</td>
+                <td>Abiseik</td>
+                <td>b+</td>
+                <td>Mukund</td>
+                <td>21/07/26</td>
+                <td>nil</td>
+
+            </tr>
+        </tbody>
+
+
+</table>
+
+</body>
+</html>
