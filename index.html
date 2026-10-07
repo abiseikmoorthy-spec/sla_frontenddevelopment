@@ -1044,7 +1044,7 @@
                     <p class="course-desc">Extended from Day 9 up to Day 20 with all practical task slots</p>
                     <div class="course-stats">
                         <div>
-                            <span class="course-stat-val">20</span>
+                            <span class="course-stat-val">10</span>
                             <span class="course-stat-lbl">Days Total</span>
                         </div>
                         <div>
@@ -1052,7 +1052,7 @@
                             <span class="course-stat-lbl">Tasks Done</span>
                         </div>
                         <div>
-                            <span class="course-stat-val" style="color:#d97706;">Day 10-20</span>
+                            <span class="course-stat-val" style="color:#d97706;">Day 1-10</span>
                             <span class="course-stat-lbl">Extended</span>
                         </div>
                     </div>
@@ -1126,11 +1126,11 @@
                             <span class="course-stat-lbl">Days Total</span>
                         </div>
                         <div>
-                            <span class="course-stat-val" style="color:#10b981;">12</span>
+                            <span class="course-stat-val" style="color:#10b981;">18</span>
                             <span class="course-stat-lbl">Tasks Done</span>
                         </div>
                         <div>
-                            <span class="course-stat-val" style="color:#d97706;">Day 11-20</span>
+                            <span class="course-stat-val" style="color:#d97706;">Day 18-20</span>
                             <span class="course-stat-lbl">Extended</span>
                         </div>
                     </div>
@@ -1152,12 +1152,12 @@
                             <span class="course-stat-lbl">Days Total</span>
                         </div>
                         <div>
-                            <span class="course-stat-val" style="color:#d97706;">Day 1-10</span>
-                            <span class="course-stat-lbl">Allotted</span>
+                            <span class="course-stat-val" style="color:#10b981;">2</span>
+                            <span class="course-stat-lbl">Tasks Done</span>
                         </div>
                         <div>
-                            <span class="course-stat-val">Empty Slots</span>
-                            <span class="course-stat-lbl">Status</span>
+                            <span class="course-stat-val" style="color:#d97706;">Day 3-10</span>
+                            <span class="course-stat-lbl">Extended</span>
                         </div>
                     </div>
                 </div>
@@ -1312,7 +1312,7 @@
  * - CSS: Day 1 to Day 20 (Days 1, 2, 3, 4, 5, 6, 10 done; others extended empty slots)
  * - Bootstrap & Tailwind: Day 1 to Day 15 (Days 1, 2, 3, 4 done; others extended empty slots)
  * - JavaScript: Day 1 to Day 20 (Days 3, 4, 5, 6, 7, 8, 9, 10 done; others extended empty slots)
- * - React: Day 1 to Day 10 (Allotted empty slots)
+ * - React: Day 1 to Day 10 (Days 1, 2 done; others extended empty slots)
  * - SQL: Day 1 to Day 10 (Allotted empty slots)
  */
 const courseConfigs = {
@@ -1447,6 +1447,12 @@ const courseConfigs = {
         maxDays: 20,
         folder: "javascript",
         realTasks: {
+            "1": [
+                { name: "JavaScript Introduction & Basics", file: "javascript/day1/index.html" }
+            ],
+            "2": [
+                { name: "Variables & Data Types", file: "javascript/day2/index.html" }
+            ],
             "3": [
                 { name: "Operators Assignment", file: "javascript/day3/assignment.html" },
                 { name: "JavaScript Basics", file: "javascript/day3/basic.html" },
@@ -1474,6 +1480,16 @@ const courseConfigs = {
             ],
             "10": [
                 { name: "JavaScript Advanced Application", file: "javascript/day10/index.html" }
+            ],
+            "11": [
+                { name: "JavaScript Day 11 Practice", file: "javascript/day11/index.html" }
+            ],
+            "16": [
+                { name: "JavaScript Day 16 Practice", file: "javascript/day16/index.html" }
+            ],
+            "17": [
+                { name: "Student Form Practice", file: "javascript/day17/index1.html" },
+                { name: "Employee Form Practice", file: "javascript/day17/index2.html" }
             ]
         }
     },
@@ -1483,7 +1499,14 @@ const courseConfigs = {
         icon: "⚛️",
         maxDays: 10,
         folder: "React",
-        realTasks: {}
+        realTasks: {
+            "1": [
+                { name: "React Introduction & JSX Basics", file: "React/day1/index.html" }
+            ],
+            "2": [
+                { name: "React Components & Employee Card", file: "React/day2/index.html" }
+            ]
+        }
     },
     SQL: {
         name: "SQL Database",

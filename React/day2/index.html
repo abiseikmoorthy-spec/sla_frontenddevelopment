@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Day 2 - newproject</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .Card {
+            background-color: greenyellow;
+            border: solid 2px black;
+            width: 250px;
+            height: 200px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+    </style>
+    <!-- React & ReactDOM CDN for standalone in-browser execution -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- Direct rendering fallback ensuring instant display even offline -->
+        <div>
+            <button>click here</button>
+            <div>
+                <input type="text" />
+            </div>
+            <div class="Card">
+                <h1>Employee Name</h1>
+                <p> Abiseik </p>
+                <p> departnment IT</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- React Components matching App.jsx, Button1.jsx, Finput.jsx, Card.jsx -->
+    <script type="text/babel">
+        if (window.React && window.ReactDOM) {
+            function Button1() {
+                return (
+                    <button>
+                        click here
+                    </button>
+                );
+            }
+
+            const Finput = () => {
+                return (
+                    <div>
+                        <input type="text" />
+                    </div>
+                );
+            };
+
+            function Card() {
+                return (
+                    <div className="Card">
+                        <h1>Employee Name</h1>
+                        <p> Abiseik </p>
+                        <p> departnment IT</p>
+                    </div>
+                );
+            }
+
+            const App = () => {
+                return (
+                    <div>
+                        <Button1 />
+                        <Finput />
+                        <Card />
+                    </div>
+                );
+            };
+
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(<App />);
+        }
+    </script>
+</body>
+</html>

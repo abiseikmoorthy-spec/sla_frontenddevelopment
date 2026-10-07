@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React - Day 1: Introduction & JSX Basics</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .container {
+            max-width: 680px;
+            width: 100%;
+            background: #1e293b;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            padding: 36px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+        }
+        .icon {
+            font-size: 42px;
+            background: #082f49;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid #0284c7;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        .description {
+            color: #94a3b8;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        .topic-card {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .topic-card h3 {
+            color: #38bdf8;
+            font-size: 14px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .topic-card p {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .interactive-box {
+            background: #082f49;
+            border: 1px solid #0284c7;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .interactive-box h2 {
+            font-size: 18px;
+            color: #e0f2fe;
+            margin-bottom: 8px;
+        }
+        .interactive-box p {
+            color: #7dd3fc;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        .counter-display {
+            font-size: 32px;
+            font-weight: 800;
+            color: #38bdf8;
+            margin-bottom: 16px;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        button {
+            background: #0284c7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+        button:hover {
+            background: #0369a1;
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        button.btn-secondary {
+            background: #334155;
+            color: #cbd5e1;
+        }
+        button.btn-secondary:hover {
+            background: #475569;
+        }
+    </style>
+
+    <!-- React 18 Production UMD and Babel for JSX execution -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!-- Fallback while React loads or if offline -->
+        <div class="container">
+            <div class="header">
+                <div class="icon">⚛️</div>
+                <div>
+                    <span class="badge">React • Day 1</span>
+                    <h1>Introduction & JSX Basics</h1>
+                </div>
+            </div>
+            <p class="description">
+                Welcome to React! Day 1 covers React library fundamentals, JSX component architecture, Virtual DOM principles, and reactive UI state management.
+            </p>
+            <div class="topics">
+                <div class="topic-card">
+                    <h3>⚡ Virtual DOM</h3>
+                    <p>Lightweight in-memory DOM representation for high performance rendering.</p>
+                </div>
+                <div class="topic-card">
+                    <h3>🧩 Components</h3>
+                    <p>Reusable, independent blocks of code that return user interface elements.</p>
+                </div>
+                <div class="topic-card">
+                    <h3>🎯 JSX Syntax</h3>
+                    <p>A syntax extension for JavaScript that looks like HTML inside your code.</p>
+                </div>
+            </div>
+            <div class="interactive-box">
+                <h2>Interactive Component Demo</h2>
+                <p>Click below to test reactive state updates in this component:</p>
+                <div class="counter-display" id="fallbackCount">Clicks: 0</div>
+                <div class="btn-group">
+                    <button onclick="document.getElementById('fallbackCount').innerText = 'Clicks: ' + (++window.clickCount || (window.clickCount = 1))">
+                        Increment +
+                    </button>
+                    <button class="btn-secondary" onclick="window.clickCount = 0; document.getElementById('fallbackCount').innerText = 'Clicks: 0'">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- React Component Application -->
+    <script type="text/babel">
+        if (window.React && window.ReactDOM) {
+            const { useState } = React;
+
+            function Day1App() {
+                const [count, setCount] = useState(0);
+
+                return (
+                    <div className="container">
+                        <div className="header">
+                            <div className="icon">⚛️</div>
+                            <div>
+                                <span className="badge">React • Day 1</span>
+                                <h1>Introduction & JSX Basics</h1>
+                            </div>
+                        </div>
+
+                        <p className="description">
+                            Welcome to React! Day 1 covers React library fundamentals, JSX component architecture, Virtual DOM principles, and reactive UI state management.
+                        </p>
+
+                        <div className="topics">
+                            <div className="topic-card">
+                                <h3>⚡ Virtual DOM</h3>
+                                <p>Lightweight in-memory DOM representation for high performance rendering.</p>
+                            </div>
+                            <div className="topic-card">
+                                <h3>🧩 Components</h3>
+                                <p>Reusable, independent blocks of code that return user interface elements.</p>
+                            </div>
+                            <div className="topic-card">
+                                <h3>🎯 JSX Syntax</h3>
+                                <p>A syntax extension for JavaScript that looks like HTML inside your code.</p>
+                            </div>
+                        </div>
+
+                        <div className="interactive-box">
+                            <h2>Interactive Component Demo</h2>
+                            <p>Powered by React <code>useState</code> hook:</p>
+                            <div className="counter-display">Clicks: {count}</div>
+                            <div className="btn-group">
+                                <button onClick={() => setCount(count + 1)}>
+                                    Increment +
+                                </button>
+                                <button className="btn-secondary" onClick={() => setCount(0)}>
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(<Day1App />);
+        }
+    </script>
+</body>
+</html>
